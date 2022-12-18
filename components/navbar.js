@@ -10,15 +10,13 @@ export default function Navbar() {
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <Link className="nav-link active" aria-current="page" href={'/'}>Home</Link>
                         <Link className="nav-link" href={'/cart'}>Cart</Link>
                         <a class="nav-link" href="#">Pricing</a>
                         <a class="nav-link disabled">Disabled</a>
                     </div>
                     <div class="navbar-nav">
-                        <Link href={'/cart'} passHref>
-                            <CartButton />
-                        </Link>
+                        <ViewCartButton />
                     </div>
                 </div>
             </div>
@@ -27,13 +25,15 @@ export default function Navbar() {
 }
 
 
-function CartButton() {
+export function ViewCartButton() {
     // const [count, setCount] = useState(0);
 
     // function handleClick() {
     //     setCount(count + 1);
     //   }
     return (
-        <button className="btn btn-primary fw-bold">View Cart</button>
+        <Link href={'/cart'} passHref>
+            <button className="btn btn-primary fw-bold">View Cart</button>
+        </Link>
     )
 }

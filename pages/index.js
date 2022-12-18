@@ -3,6 +3,8 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import { useState } from 'react';
+import { items } from '../fake-data/data';
+import { ViewCartButton } from '../components/navbar';
 
 
 export default function Home() {
@@ -14,10 +16,10 @@ export default function Home() {
             </Head>
             <main>
                 <div className='text-center'>
-                        <h1>Home</h1>
+                    <h1>Home</h1>
                 </div>
                 <div className='mt-5'>
-                    <ProductCard />
+                    <ProductCard items={items} />
                 </div>
             </main>
         </>
@@ -26,30 +28,58 @@ export default function Home() {
 
 
 
-function ProductCard() {
+function ProductCard({ items }) {
+    const [cart, setCart] = useState([]);
+    const [itemName, setItemName] = useState("");
+    const [itemCount, setItemCount] = useState(0);
+
+
 
     return (
-        <div className="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
-            <div className="col">
-                <div className="card">
-                    <Image src="/images/default-placeholder.png" className="card-img-top" width={100} height={200} quality={100} alt="default image" />
-                    <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">Tempor quod commodo ut vulputate justo justo magna accusam eu nulla molestie augue accumsan vel dolore ipsum.</p>
-                        <Link className='btn btn-warning text-light' href={'#'}>View Item</Link>
-                        <AddToCartButton />
+        items.map(item =>
+            <div className="row row-cols-2 row-cols-md-3 g-4 justify-content-center" key={item.id}>
+                <div className="col">
+                    <div className="card m-2">
+                        <Image src="/images/default-placeholder.png" className="card-img-top" width={100} height={100} quality={100} alt="default image" />
+                        <div className="card-body">
+                            <h5 className="card-title">{item.name}</h5>
+                            <p className="card-text">{item.description}</p>
+                            <p className="card-text">{item.price}</p>
+                            <Link className='btn btn-warning text-light' href={'#'}>View Item</Link>
+                            <AddToCartButton
+                                cart={cart}
+                                setCart={setCart}
+                                itemCount={itemCount}
+                                setItemCount={setItemCount}
+                                itemName={itemName}
+                                setItemName={setItemName}
+                                item={item}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
+        )
+    );
+};
+
+function AddToCartButton({ cart, setCart, itemCount, setItemCount, itemName, setItemName, item }) {
+    function handleAddToCartClick() {
+        // setItemName(item.name);
+        setCart([item.name, item.id]);
+        setItemCount(itemCount + 1);
+        
+    }
+    console.log(cart);
+    
+    return (
+        <div>
+            <button onClick={handleAddToCartClick} className="btn btn-primary">Add to Cart <span class="badge text-bg-secondary">{itemCount}</span></button>
         </div>
     )
 }
 
-function AddToCartButton() {
-    function handleClick() {
-        alert('Item added to cart.');
-    }
-    return (
-        <button onClick={handleClick} className="btn btn-primary">Add To Cart</button>
-    )
+function AddToCartAlert({ items }) {
+
+
 }

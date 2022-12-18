@@ -5,4 +5,6 @@ body {
 
 img {
     object-fit: cover;
+    width: auto;
+    height: auto;
 }
