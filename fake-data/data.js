@@ -1,5 +1,6 @@
 export const items = [{
     id: 1,
+    img: '/images/default-placeholder.png',
     name: '6950 XT',
     brand: 'AMD',
     price: '$650',
@@ -8,6 +9,7 @@ export const items = [{
 },
 {
     id: 2,
+    img: '/images/default-placeholder.png',
     name: 'RTX 3080',
     brand: 'Nvidia',
     price: '$700',

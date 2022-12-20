@@ -22,7 +22,7 @@ function CartItem() {
         <div class="card mb-3 col-6 mx-auto">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <Image src="/images/default-placeholder.png" className="card-img-top" width={200} height={200} quality={100} alt="default image" />
+                    <Image src="/images/default-placeholder.png" className="card-img-top" width={100} height={100} quality={100} alt="default image" />
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
