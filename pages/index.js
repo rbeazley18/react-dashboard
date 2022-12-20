@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { items } from '../fake-data/data';
 import { ViewCartButton } from '../components/navbar';
 
@@ -30,9 +30,12 @@ export default function Home() {
 
 function ProductCard({ items }) {
     const [cart, setCart] = useState([]);
-    const [itemName, setItemName] = useState("");
-    const [itemCount, setItemCount] = useState(0);
+    // const [itemCount, setItemCount] = useState(0);
 
+    useEffect(() => {
+        console.log(cart);
+        // setItemCount(prevCount => prevCount + 1);
+    }, [cart])
 
 
     return (
@@ -40,7 +43,7 @@ function ProductCard({ items }) {
             <div className="row row-cols-2 row-cols-md-3 g-4 justify-content-center" key={item.id}>
                 <div className="col">
                     <div className="card m-2">
-                        <Image src="/images/default-placeholder.png" className="card-img-top" width={100} height={100} quality={100} alt="default image" />
+                        <Image src={item.img} className="card-img-top" width={100} height={100} quality={100} alt="default image" />
                         <div className="card-body">
                             <h5 className="card-title">{item.name}</h5>
                             <p className="card-text">{item.description}</p>
@@ -49,10 +52,8 @@ function ProductCard({ items }) {
                             <AddToCartButton
                                 cart={cart}
                                 setCart={setCart}
-                                itemCount={itemCount}
-                                setItemCount={setItemCount}
-                                itemName={itemName}
-                                setItemName={setItemName}
+                                // itemCount={itemCount}
+                                // setItemCount={setItemCount}
                                 item={item}
                             />
                         </div>
@@ -63,15 +64,13 @@ function ProductCard({ items }) {
     );
 };
 
-function AddToCartButton({ cart, setCart, itemCount, setItemCount, itemName, setItemName, item }) {
+function AddToCartButton({ cart, setCart, itemCount, setItemCount, item }) {
     function handleAddToCartClick() {
-        // setItemName(item.name);
-        setCart([item.name, item.id]);
-        setItemCount(itemCount + 1);
-        
+        setCart(cart => [...cart, item]);
+        // setItemCount(prevCount => prevCount + 1);
     }
-    console.log(cart);
-    
+
+
     return (
         <div>
             <button onClick={handleAddToCartClick} className="btn btn-primary">Add to Cart <span class="badge text-bg-secondary">{itemCount}</span></button>
