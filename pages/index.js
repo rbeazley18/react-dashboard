@@ -37,6 +37,10 @@ function ProductCard({ items }) {
         // setItemCount(prevCount => prevCount + 1);
     }, [cart])
 
+    function addItemToCart() {
+        
+    }
+
 
     return (
         items.map(item =>
