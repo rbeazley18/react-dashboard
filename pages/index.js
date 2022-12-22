@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { items } from '../fake-data/data';
 import { ViewCartButton } from '../components/navbar';
+import { connectToClusterAndInsertDocument } from './api/addToCart';
+
 
 
 export default function Home() {
@@ -34,12 +36,9 @@ function ProductCard({ items }) {
 
     useEffect(() => {
         console.log(cart);
+        // connectToClusterAndInsertDocument(cart);
         // setItemCount(prevCount => prevCount + 1);
     }, [cart])
-
-    function addItemToCart() {
-        
-    }
 
 
     return (
@@ -71,6 +70,7 @@ function ProductCard({ items }) {
 function AddToCartButton({ cart, setCart, itemCount, setItemCount, item }) {
     function handleAddToCartClick() {
         setCart(cart => [...cart, item]);
+        connectToClusterAndInsertDocument(cart);
         // setItemCount(prevCount => prevCount + 1);
     }
 
