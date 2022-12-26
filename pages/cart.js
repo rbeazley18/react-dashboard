@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import clientPromise from './api/mongodb';
+import clientPromise from '../lib/mongodb';
 
 export default function Cart({ cartItems }) {
     const allCartItems = cartItems.map((item) => (
@@ -49,7 +49,7 @@ export async function getServerSideProps() {
             .limit(20)
             .toArray();
 
-        console.log(cartItems)
+        // console.log(cartItems)
 
         return {
             props: { cartItems: JSON.parse(JSON.stringify(cartItems)) },

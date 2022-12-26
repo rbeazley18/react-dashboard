@@ -1,12 +1,13 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+// import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { items } from '../fake-data/data';
-import { ViewCartButton } from '../components/navbar';
-import { connectToClusterAndInsertDocument } from './api/addToCart';
+// import connectToClusterAndInsertDocument from './api/addToCart';
+// import clientPromise from '../lib/mongodb';
 
+// import { ViewCartButton } from '../components/navbar';
 
 
 export default function Home() {
@@ -36,8 +37,24 @@ function ProductCard({ items }) {
 
     useEffect(() => {
         console.log(cart);
-        // connectToClusterAndInsertDocument(cart);
-        // setItemCount(prevCount => prevCount + 1);
+        // async (cart) => {
+        //     const client = await clientPromise;
+
+        //     try {
+        //         // Connect to the MongoDB cluster
+        //         await client.connect();
+        //         // Make the appropriate DB calls
+        //         await client.db("Items").collection("Cart").insertMany(cart);
+
+        //     }
+        //     catch (err) {
+        //         console.log(err);
+        //         console.error("Error connecting to database.");
+        //     } finally {
+        //         // Close the connection to the MongoDB cluster
+        //         await client.close();
+        //     }
+        // }
     }, [cart])
 
 
@@ -55,8 +72,6 @@ function ProductCard({ items }) {
                             <AddToCartButton
                                 cart={cart}
                                 setCart={setCart}
-                                // itemCount={itemCount}
-                                // setItemCount={setItemCount}
                                 item={item}
                             />
                         </div>
@@ -68,10 +83,18 @@ function ProductCard({ items }) {
 };
 
 function AddToCartButton({ cart, setCart, itemCount, setItemCount, item }) {
-    function handleAddToCartClick() {
+    async function handleAddToCartClick(req, res) {
         setCart(cart => [...cart, item]);
-        connectToClusterAndInsertDocument(cart);
-        // setItemCount(prevCount => prevCount + 1);
+
+        // const client = await clientPromise;
+
+        // try {
+        //     await client.connect();
+        //     const result = await client.db("Items").collection("Cart").insertMany(cart);
+        //     res.status(200).json({ result })
+        // } catch (err) {
+        //     res.status(500).json({ error: 'failed to load data' })
+        // }
     }
 
 
@@ -82,7 +105,7 @@ function AddToCartButton({ cart, setCart, itemCount, setItemCount, item }) {
     )
 }
 
-function AddToCartAlert({ items }) {
+// function AddToCartAlert({ items }) {
 
 
-}
+// }

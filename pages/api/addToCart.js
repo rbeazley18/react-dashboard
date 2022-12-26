@@ -1,13 +1,13 @@
-// import clientPromise from "./mongodb";
+import clientPromise from "../../lib/mongodb";
 
-export default async function connectToClusterAndInsertDocument(cart) {
+export default async function connectToClusterAndInsertDocument() {
     const client = await clientPromise;
 
     try {
         // Connect to the MongoDB cluster
         await client.connect();
         // Make the appropriate DB calls
-        await addItemToCart(client, cart);
+        await addItemToCart(client);
 
     }
     catch (err) {
