@@ -1,5 +1,4 @@
 export const items = [{
-    id: 1,
     name: '6950 XT',
     img: '/images/default-placeholder.png',
     brand: 'AMD',
@@ -9,9 +8,8 @@ export const items = [{
     count: 0
 },
 {
-    id: 2,
-    img: '/images/default-placeholder.png',
     name: 'RTX 3080',
+    img: '/images/default-placeholder.png',
     brand: 'Nvidia',
     price: '$700',
     description: 'Used RTX 3080 for sale.',
