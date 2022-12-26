@@ -4,10 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { items } from '../fake-data/data';
-// import connectToClusterAndInsertDocument from './api/addToCart';
-// import clientPromise from '../lib/mongodb';
-
-// import { ViewCartButton } from '../components/navbar';
 
 
 export default function Home() {
@@ -36,25 +32,7 @@ function ProductCard({ items }) {
     // const [itemCount, setItemCount] = useState(0);
 
     useEffect(() => {
-        console.log(cart);
-        // async (cart) => {
-        //     const client = await clientPromise;
-
-        //     try {
-        //         // Connect to the MongoDB cluster
-        //         await client.connect();
-        //         // Make the appropriate DB calls
-        //         await client.db("Items").collection("Cart").insertMany(cart);
-
-        //     }
-        //     catch (err) {
-        //         console.log(err);
-        //         console.error("Error connecting to database.");
-        //     } finally {
-        //         // Close the connection to the MongoDB cluster
-        //         await client.close();
-        //     }
-        // }
+        // console.log(cart);
     }, [cart])
 
 
@@ -83,7 +61,6 @@ function ProductCard({ items }) {
 };
 
 function AddToCartButton({ cart, setCart, itemCount, setItemCount, item }) {
-    // async function handleAddToCartClick(req, res) {
 
     const handleSubmit = async (event) => {
         setCart(cart => [...cart, item]);
@@ -125,8 +102,6 @@ function AddToCartButton({ cart, setCart, itemCount, setItemCount, item }) {
 
     return (
         <div>
-            {/* <button onClick={handleAddToCartClick} className="btn btn-primary">Add to Cart <span class="badge text-bg-secondary">{itemCount}</span></button> */}
-            
             <form onSubmit={handleSubmit}>
                 <button type="submit" className="btn btn-primary" name="addToCartBtn">Add to Cart</button>
             </form>
