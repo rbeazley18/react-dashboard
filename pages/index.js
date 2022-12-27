@@ -1,10 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+// import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { items } from '../fake-data/data';
-import { ViewCartButton } from '../components/navbar';
 
 
 export default function Home() {
@@ -33,14 +32,13 @@ function ProductCard({ items }) {
     // const [itemCount, setItemCount] = useState(0);
 
     useEffect(() => {
-        console.log(cart);
-        // setItemCount(prevCount => prevCount + 1);
+        // console.log(cart);
     }, [cart])
 
 
     return (
         items.map(item =>
-            <div className="row row-cols-2 row-cols-md-3 g-4 justify-content-center" key={item.id}>
+            <div className="row row-cols-2 row-cols-md-3 g-4 justify-content-center" key={item.name}>
                 <div className="col">
                     <div className="card m-2">
                         <Image src={item.img} className="card-img-top" width={100} height={100} quality={100} alt="default image" />
@@ -52,8 +50,6 @@ function ProductCard({ items }) {
                             <AddToCartButton
                                 cart={cart}
                                 setCart={setCart}
-                                // itemCount={itemCount}
-                                // setItemCount={setItemCount}
                                 item={item}
                             />
                         </div>
@@ -65,20 +61,55 @@ function ProductCard({ items }) {
 };
 
 function AddToCartButton({ cart, setCart, itemCount, setItemCount, item }) {
-    function handleAddToCartClick() {
-        setCart(cart => [...cart, item]);
-        // setItemCount(prevCount => prevCount + 1);
-    }
 
+    const handleSubmit = async (event) => {
+        setCart(cart => [...cart, item]);
+        // Stop the form from submitting and refreshing the page.
+        event.preventDefault()
+
+        // Get data from the form.
+        const data = {
+            itemToAdd: item
+        }
+
+        // Send the data to the server in JSON format.
+        const JSONdata = JSON.stringify(data);
+        console.log(JSONdata);
+        // API endpoint where we send form data.
+        const endpoint = '/api/addToCartForm'
+
+        // Form the request for sending data to the server.
+        const options = {
+            // The method is POST because we are sending data.
+            method: 'POST',
+            // Tell the server we're sending JSON.
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Body of the request is the JSON data we created above.
+            body: JSONdata,
+        }
+
+        // Send the form data to our forms API on Vercel and get a response.
+        const response = await fetch(endpoint, options)
+
+        // Get the response data from server as JSON.
+        // If server returns the name submitted, that means the form works.
+        const result = await response.json()
+        // alert(`Your item: ${JSON.stringify(result.data)}`);
+        console.log(`Result: ${result}`);
+    }
 
     return (
         <div>
-            <button onClick={handleAddToCartClick} className="btn btn-primary">Add to Cart <span class="badge text-bg-secondary">{itemCount}</span></button>
+            <form onSubmit={handleSubmit}>
+                <button type="submit" className="btn btn-primary" name="addToCartBtn">Add to Cart</button>
+            </form>
         </div>
     )
 }
 
-function AddToCartAlert({ items }) {
+// function AddToCartAlert({ items }) {
 
 
-}
+// }
