@@ -31,11 +31,6 @@ function ProductCard({ items }) {
     const [cart, setCart] = useState([]);
     // const [itemCount, setItemCount] = useState(0);
 
-    useEffect(() => {
-        // console.log(cart);
-    }, [cart])
-
-
     return (
         items.map(item =>
             <div className="row row-cols-2 row-cols-md-3 g-4 justify-content-center" key={item.name}>
@@ -60,7 +55,10 @@ function ProductCard({ items }) {
     );
 };
 
-function AddToCartButton({ cart, setCart, itemCount, setItemCount, item }) {
+function AddToCartButton({ cart, setCart, item }) {
+    // useEffect((item) => {
+    //     alert(`${item} added to cart`)
+    // }, [cart])
 
     const handleSubmit = async (event) => {
         setCart(cart => [...cart, item]);
