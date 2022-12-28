@@ -41,7 +41,7 @@ function ProductCard({ items }) {
                             <h5 className="card-title">{item.name}</h5>
                             <p className="card-text">{item.description}</p>
                             <p className="card-text">{item.price}</p>
-                            <Link className='btn btn-warning text-light' href={'#'}>View Item</Link>
+                            <ViewItemButton item={item} />
                             <AddToCartButton
                                 cart={cart}
                                 setCart={setCart}
@@ -107,7 +107,22 @@ function AddToCartButton({ cart, setCart, item }) {
     )
 }
 
-// function AddToCartAlert({ items }) {
+function ViewItemButton({ item }) {
+    const [viewItem, setViewItem] = useState(false);
 
+    if (viewItem) {
+        return (
+            <div className='border'>
+                <h5 className="card-title">{item.name}</h5>
+                <p className="card-text">{item.description}</p>
+                <p className="card-text">{item.price}</p>
+                <button onClick={() => setViewItem(false)} className="btn btn-secondary text-light" name="closeBtn">Close</button>
+            </div>
 
-// }
+        )
+    }
+
+    return (
+        <button onClick={() => setViewItem(true)} className="btn btn-warning text-light" name="viewItemBtn">View Item</button>
+    )
+}
