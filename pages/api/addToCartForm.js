@@ -1,6 +1,6 @@
 import clientPromise from "../../lib/mongodb";
 
-export default async function handler(req, res) {
+export default async function addToCartHandler(req, res) {
     // Get data submitted in request's body.
     const body = req.body
   
