@@ -41,7 +41,7 @@ function ProductCard({ items }) {
                             <h5 className="card-title">{item.name}</h5>
                             <p className="card-text">{item.description}</p>
                             <p className="card-text">{item.price}</p>
-                            <ViewItemButton item={item} />
+                            <PreviewButton item={item} />
                             <AddToCartButton
                                 cart={cart}
                                 setCart={setCart}
@@ -107,22 +107,22 @@ function AddToCartButton({ cart, setCart, item }) {
     )
 }
 
-function ViewItemButton({ item }) {
-    const [viewItem, setViewItem] = useState(false);
+function PreviewButton({ item }) {
+    const [preview, setPreview] = useState(false);
 
-    if (viewItem) {
+    if (preview) {
         return (
             <div className='border'>
                 <h5 className="card-title">{item.name}</h5>
                 <p className="card-text">{item.description}</p>
                 <p className="card-text">{item.price}</p>
-                <button onClick={() => setViewItem(false)} className="btn btn-secondary text-light" name="closeBtn">Close</button>
+                <button onClick={() => setPreview(false)} className="btn btn-secondary text-light" name="hideBtn">Hide</button>
             </div>
 
         )
     }
 
     return (
-        <button onClick={() => setViewItem(true)} className="btn btn-warning text-light" name="viewItemBtn">View Item</button>
+        <button onClick={() => setPreview(true)} className="btn btn-warning text-light" name="hideBtn">Preview</button>
     )
 }

@@ -8,8 +8,6 @@ export default async function addToCartHandler(req, res) {
     // in the command line where next.js app is running.
     console.log('body: ', body)
   
-    // Guard clause checks for first and last name,
-    // and returns early if they are not found
     if (!body.itemToAdd) {
       // Sends a HTTP bad request error code
       return res.status(400).json({ data: 'Item not found' })
