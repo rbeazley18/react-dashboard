@@ -15,7 +15,7 @@ export default function Home() {
             </Head>
             <main>
                 <div className='text-center'>
-                    <h1>Home</h1>
+                    <h1></h1>
                 </div>
                 <div className='mt-5'>
                     <ProductCard items={items} />
