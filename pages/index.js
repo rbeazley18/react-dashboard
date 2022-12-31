@@ -72,7 +72,7 @@ function AddToCartButton({ cart, setCart, item }) {
 
         // Send the data to the server in JSON format.
         const JSONdata = JSON.stringify(data);
-        console.log(JSONdata);
+        // console.log(JSONdata);
         // API endpoint where we send form data.
         const endpoint = '/api/addToCartForm'
 
@@ -95,7 +95,7 @@ function AddToCartButton({ cart, setCart, item }) {
         // If server returns the name submitted, that means the form works.
         const result = await response.json()
         // alert(`Your item: ${JSON.stringify(result.data)}`);
-        console.log(`Result: ${result}`);
+        // console.log(`Result: ${result}`);
     }
 
     return (
