@@ -1,5 +1,5 @@
 import Navbar from './navbar'
-import WeatherWidget from '../pages/api/weather'
+import WeatherWidget from './weather'
 
 export default function Layout({ children }) {
     return (
