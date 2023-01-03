@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { items } from '../fake-data/data';
+import StockWidget from './stocks';
 
 
 export default function Home() {
@@ -15,7 +16,8 @@ export default function Home() {
             </Head>
             <main>
                 <div className='text-center'>
-                    <h1></h1>
+                    <h1>Home</h1>
+                    <StockWidget />
                 </div>
                 <div className='mt-5'>
                     <ProductCard items={items} />
@@ -24,8 +26,6 @@ export default function Home() {
         </>
     )
 }
-
-
 
 function ProductCard({ items }) {
     const [cart, setCart] = useState([]);
@@ -100,9 +100,9 @@ function AddToCartButton({ cart, setCart, item }) {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <button type="submit" className="btn btn-primary" name="addToCartBtn">Add to Cart</button>
-            </form>
+            {/* <form onSubmit={handleSubmit}> */}
+                <button type="submit" onClick={handleSubmit} className="btn btn-primary" name="addToCartBtn">Add to Cart</button>
+            {/* </form> */}
         </div>
     )
 }
