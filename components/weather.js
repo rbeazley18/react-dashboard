@@ -44,10 +44,7 @@ export default function WeatherWidget() {
         console.log(result);
 
         setWeatherData(weatherData => [...weatherData, result]);
-
-        
     }
-
 
     return (
         <div>
@@ -60,7 +57,7 @@ export default function WeatherWidget() {
                         <h5 className="card-title">City: {weather.name}</h5>
                         <p className="card-text">ID: {weather.id}</p>
                         <p className="card-text">Wind: {weather.wind.speed}</p>
-                        <button onClick={() => setWeatherData([])} className="btn btn-primary">Reset Weather</button>
+                        <button onClick={() => setWeatherData([])} className="btn btn-danger">Reset Weather</button>
                     </div>
                     <div className="card-footer text-muted">
                         2 days ago
@@ -71,7 +68,7 @@ export default function WeatherWidget() {
                     <h3>Search Weather</h3>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="city">City: </label>
-                        <input type="text" id="city" name="city" />
+                        <input type="text" id="city" name="city" required />
                         <button className="btn btn-primary" type="submit">Submit</button>
                     </form>
                 </div>
