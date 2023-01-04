@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { items } from '../fake-data/data';
+import StockWidget from './stocks';
 
 
 export default function Home() {
@@ -15,7 +16,8 @@ export default function Home() {
             </Head>
             <main>
                 <div className='text-center'>
-                    <h1></h1>
+                    <h1>Home</h1>
+                    <StockWidget />
                 </div>
                 <div className='mt-5'>
                     <ProductCard items={items} />
@@ -24,8 +26,6 @@ export default function Home() {
         </>
     )
 }
-
-
 
 function ProductCard({ items }) {
     const [cart, setCart] = useState([]);
@@ -72,7 +72,7 @@ function AddToCartButton({ cart, setCart, item }) {
 
         // Send the data to the server in JSON format.
         const JSONdata = JSON.stringify(data);
-        console.log(JSONdata);
+        // console.log(JSONdata);
         // API endpoint where we send form data.
         const endpoint = '/api/addToCartForm'
 
@@ -95,14 +95,14 @@ function AddToCartButton({ cart, setCart, item }) {
         // If server returns the name submitted, that means the form works.
         const result = await response.json()
         // alert(`Your item: ${JSON.stringify(result.data)}`);
-        console.log(`Result: ${result}`);
+        // console.log(`Result: ${result}`);
     }
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <button type="submit" className="btn btn-primary" name="addToCartBtn">Add to Cart</button>
-            </form>
+            {/* <form onSubmit={handleSubmit}> */}
+                <button type="submit" onClick={handleSubmit} className="btn btn-primary" name="addToCartBtn">Add to Cart</button>
+            {/* </form> */}
         </div>
     )
 }

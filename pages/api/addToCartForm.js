@@ -6,7 +6,7 @@ export default async function addToCartHandler(req, res) {
   
     // Optional logging to see the responses
     // in the command line where next.js app is running.
-    console.log('body: ', body)
+    // console.log('body: ', body)
   
     if (!body.itemToAdd) {
       // Sends a HTTP bad request error code
@@ -29,7 +29,6 @@ async function addItemToCart(item) {
         const cartItems = await db
             .collection("Cart")
             .insertOne(item)
-
 
     } catch (e) {
         console.error(e);

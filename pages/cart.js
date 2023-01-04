@@ -5,7 +5,7 @@ import clientPromise from '../lib/mongodb';
 export default function Cart({ cartItems }) {
     const allCartItems = cartItems.map((item) => (
         <>
-            <div className="card mb-3 col-6 mx-auto" key={item.id}>
+            <div className="card mb-3 col-6 mx-auto" key={item._id}>
                 <div className="row g-0">
                     <div className="col-md-4">
                         <Image src="/images/default-placeholder.png" className="card-img-top" width={100} height={100} quality={100} alt="default image" />
@@ -14,7 +14,7 @@ export default function Cart({ cartItems }) {
                         <div className="card-body">
                             <h5 className="card-title">{item.name}</h5>
                             <p className="card-text">{item.brand}</p>
-                            <p>{item.id}</p>
+                            <p>ID: {item._id}</p>
                             <p className="card-text"><small className="text-muted">{item.price}</small></p>
                         </div>
                     </div>
