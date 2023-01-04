@@ -13,11 +13,12 @@ export default async function getWeatherHandler(req, res) {
       return res.status(400).json({ data: 'City not found' })
     }
   
-    // Found the city.
     // Sends a HTTP success code
-    res.status(200).json({ data: `${body.city}` })
+    // res.status(200).json({ data: `${body.city}` })
 
     // Send to openweather
-    
+    const data = await loadWeather()
+
+    res.json(data);
   }
 
