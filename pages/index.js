@@ -17,7 +17,6 @@ export default function Home() {
             <main>
                 <div className='text-center'>
                     <h1>Home</h1>
-                    <StockWidget />
                 </div>
                 <div className='mt-5'>
                     <ProductCard items={items} />
@@ -100,9 +99,7 @@ function AddToCartButton({ cart, setCart, item }) {
 
     return (
         <div>
-            {/* <form onSubmit={handleSubmit}> */}
                 <button type="submit" onClick={handleSubmit} className="btn btn-primary" name="addToCartBtn">Add to Cart</button>
-            {/* </form> */}
         </div>
     )
 }
