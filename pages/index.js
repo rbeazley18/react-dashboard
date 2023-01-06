@@ -3,6 +3,7 @@ import Image from 'next/image'
 // import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { items } from '../fake-data/data';
 import StockWidget from './stocks';
 
@@ -15,7 +16,7 @@ export default function Home() {
                 <meta name="description" content="Your shopping items." />
             </Head>
             <main>
-                <div className='text-center'>
+                <div className='text-center home'>
                     <h1>Home</h1>
                 </div>
                 <div className='mt-5'>
@@ -99,7 +100,7 @@ function AddToCartButton({ cart, setCart, item }) {
 
     return (
         <div>
-                <button type="submit" onClick={handleSubmit} className="btn btn-primary" name="addToCartBtn">Add to Cart</button>
+            <button type="submit" onClick={handleSubmit} className="btn btn-primary" name="addToCartBtn">Add to Cart</button>
         </div>
     )
 }
@@ -109,13 +110,14 @@ function PreviewButton({ item }) {
 
     if (preview) {
         return (
-            <div className='border'>
-                <h5 className="card-title">{item.name}</h5>
-                <p className="card-text">{item.description}</p>
-                <p className="card-text">{item.price}</p>
-                <button onClick={() => setPreview(false)} className="btn btn-secondary text-light" name="hideBtn">Hide</button>
-            </div>
-
+            <>
+                {createPortal(<div className='border'>
+                    <h5 className="card-title">{item.name}</h5>
+                    <p className="card-text">{item.description}</p>
+                    <p className="card-text">{item.price}</p>
+                    <button onClick={() => setPreview(false)} className="btn btn-secondary text-light" name="hideBtn">Hide</button>
+                </div>, document.body)}
+            </>
         )
     }
 
