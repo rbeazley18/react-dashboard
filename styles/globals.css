@@ -9,3 +9,6 @@ img {
     height: auto;
 }
 
+.form-check-input:hover {
+    cursor: pointer;
+}

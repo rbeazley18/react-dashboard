@@ -1,39 +1,35 @@
 import { useEffect, useState } from "react";
 import WidgetSwitch from "./widgetSwitch";
 
-export default function WeatherWidget({switchStatus, setSwitchStatus}) {
-    const [weatherData, setWeatherData] = useState([]);
-    // const [weatherActive, setWeatherActive] = useState(false)
+export default function StockWidget({ switchStatus, setSwitchStatus }) {
+    const [stockData, setStockData] = useState([]);
 
     useEffect(() => {
-        console.log(weatherData);
-    }, [weatherData])
+        console.log(stockData);
+    }, [stockData])
 
     useEffect(() => {
         console.log(switchStatus);
     }, [switchStatus])
 
-    // console.log(weatherData);
 
     if (switchStatus) {
         return (
             <div className="card col-md-8 mx-auto p-5" >
-                <h3>Weather</h3>
                 <WidgetSwitch
                     setSwitchStatus={setSwitchStatus}
                     switchStatus={switchStatus}
-                    onShow={() => setSwitchStatus(!switchStatus)}
                 />
                 <div>
-                    {weatherData.length > 0 ? (
-                        <WeatherDisplay
-                            weatherData={weatherData}
-                            setWeatherData={setWeatherData}
+                    {stockData.length > 0 ? (
+                        <StockDisplay
+                            stockData={stockData}
+                            setStockData={setStockData}
                         />
                     ) : (
-                        <WeatherSearch
-                            weatherData={weatherData}
-                            setWeatherData={setWeatherData}
+                        <StockSearch 
+                            stockData={stockData}
+                            setStockData={setStockData}
                         />
                     )}
                 </div>
@@ -42,30 +38,26 @@ export default function WeatherWidget({switchStatus, setSwitchStatus}) {
     }
 
     return (
-        <>
-            <p>Weather</p>
-            <WidgetSwitch
-                setSwitchStatus={setSwitchStatus}
-                switchStatus={switchStatus}
-                onShow={() => setSwitchStatus(!switchStatus)}
-            />
-        </>
+        <WidgetSwitch
+            setSwitchStatus={setSwitchStatus}
+            switchStatus={switchStatus}
+        />
     )
 }
 
-function WeatherSearch({ weatherData, setWeatherData }) {
+function StockSearch({ stockData, setStockData }) {
     const handleSubmit = async (event) => {
         // Stop the form from submitting and refreshing the page.
         event.preventDefault()
         // Get data from the form.
         const data = {
-            city: event.target.city.value
+            stock: event.target.stock.value
         }
         // Send the data to the server in JSON format.
         const JSONdata = JSON.stringify(data);
         // console.log(JSONdata);
         // API endpoint where we send form data.
-        const endpoint = '/api/weatherForm'
+        const endpoint = '/api/stockForm'
         // Form the request for sending data to the server.
         const options = {
             // The method is POST because we are sending data.
@@ -82,36 +74,36 @@ function WeatherSearch({ weatherData, setWeatherData }) {
         // Get the response data from server as JSON.
         const result = await response.json()
 
-        // console.log(result);
+        console.log(result);
 
-        setWeatherData(weatherData => [...weatherData, result]);
+        setStockData(stockData => [...stockData, result]);
     }
 
     return (
         <div>
-            <h3>Search Weather</h3>
+            <h3>Search Stocks</h3>
             <form onSubmit={handleSubmit} className="input-group">
-                <input type="text" id="city" name="city" className="form-control" placeholder="City..." required />
+                <input type="text" id="stock" name="stock" className="form-control" placeholder="Stock..." required />
                 <button className="btn btn-primary" type="submit">Submit</button>
             </form>
         </div>
     )
 }
 
-function WeatherDisplay({ weatherData, setWeatherData }) {
+function StockDisplay({ stockData, setStockData }) {
     let date = new Date().toLocaleDateString()
 
     return (
-        weatherData.map((weather) => (
-            <div key={weather.id}>
+        stockData.map((stock) => (
+            <div key={stock["Global Quote"]["01. symbol"]}>
                 <div className="card-header">
-                    Weather
+                    Stocks
                 </div>
                 <div className="card-body">
-                    <h5 className="card-title">City: {weather.name}</h5>
-                    <p className="card-text">ID: {weather.id}</p>
-                    <p className="card-text">Wind: {weather.wind.speed}</p>
-                    <button onClick={() => setWeatherData([])} className="btn btn-danger">Reset Weather</button>
+                    <h5 className="card-title">{stock["Global Quote"]["01. symbol"]}</h5>
+                    <p className="card-text"></p>
+                    <p className="card-text"></p>
+                    <button onClick={() => setStockData([])} className="btn btn-danger">Reset</button>
                 </div>
                 <div className="card-footer text-muted">
                     {date}
