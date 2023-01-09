@@ -7,14 +7,18 @@ export default function Widgets() {
 
     return (
         <>
-            <WeatherWidget 
-                switchStatus={switchStatus}
-                setSwitchStatus={setSwitchStatus}
-            />
-            <StockWidget 
-                switchStatus={switchStatus}
-                setSwitchStatus={setSwitchStatus}
-            />
+            <div className="m-5">
+                <WeatherWidget
+                    switchStatus={switchStatus}
+                    setSwitchStatus={setSwitchStatus}
+                />
+            </div>
+            <div className="m-5">
+                <StockWidget
+                    switchStatus={switchStatus}
+                    setSwitchStatus={setSwitchStatus}
+                />
+            </div>
         </>
     )
 }

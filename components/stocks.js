@@ -19,6 +19,7 @@ export default function StockWidget({ switchStatus, setSwitchStatus }) {
                 <WidgetSwitch
                     setSwitchStatus={setSwitchStatus}
                     switchStatus={switchStatus}
+                    onShow={() => setSwitchStatus(!switchStatus)}
                 />
                 <div>
                     {stockData.length > 0 ? (
@@ -41,6 +42,7 @@ export default function StockWidget({ switchStatus, setSwitchStatus }) {
         <WidgetSwitch
             setSwitchStatus={setSwitchStatus}
             switchStatus={switchStatus}
+            onShow={() => setSwitchStatus(!switchStatus)}
         />
     )
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import WidgetSwitch from "./widgetSwitch";
 
-export default function WeatherWidget({switchStatus, setSwitchStatus}) {
+export default function WeatherWidget({ switchStatus, setSwitchStatus }) {
     const [weatherData, setWeatherData] = useState([]);
     // const [weatherActive, setWeatherActive] = useState(false)
 
@@ -105,10 +105,10 @@ function WeatherDisplay({ weatherData, setWeatherData }) {
         weatherData.map((weather) => (
             <div key={weather.id}>
                 <div className="card-header">
-                    Weather
+                    <h1>City: {weather.name}</h1>
                 </div>
                 <div className="card-body">
-                    <h5 className="card-title">City: {weather.name}</h5>
+
                     <p className="card-text">ID: {weather.id}</p>
                     <p className="card-text">Wind: {weather.wind.speed}</p>
                     <button onClick={() => setWeatherData([])} className="btn btn-danger">Reset Weather</button>

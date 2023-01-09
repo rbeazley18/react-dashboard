@@ -10,7 +10,7 @@ export default function WidgetSwitch({switchStatus, setSwitchStatus, onShow}) {
 
     return (
         <div className="form-check form-switch">
-            <input onClick={onShow} checked={switchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+            <input onChange={onShow} checked={switchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
             <label className="form-check-label" htmlFor="flexSwitchCheckDefault"></label>
         </div>
     )
