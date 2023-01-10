@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import WidgetSwitch from "./widgetSwitch";
+// import WidgetSwitch from "./widgetSwitch";
 
-export default function StockWidget({ switchStatus, setSwitchStatus }) {
+export default function StockWidget() {
     const [stockData, setStockData] = useState([]);
+    const [switchStatus, setSwitchStatus] = useState(false);
 
     useEffect(() => {
         console.log(stockData);
@@ -16,10 +17,10 @@ export default function StockWidget({ switchStatus, setSwitchStatus }) {
     if (switchStatus) {
         return (
             <div className="card col-md-8 mx-auto p-5" >
-                <WidgetSwitch
-                    setSwitchStatus={setSwitchStatus}
+                <h3>Stocks</h3>
+                <StockSwitch
                     switchStatus={switchStatus}
-                    onShow={() => setSwitchStatus(!switchStatus)}
+                    setSwitchStatus={setSwitchStatus}
                 />
                 <div>
                     {stockData.length > 0 ? (
@@ -28,7 +29,7 @@ export default function StockWidget({ switchStatus, setSwitchStatus }) {
                             setStockData={setStockData}
                         />
                     ) : (
-                        <StockSearch 
+                        <StockSearch
                             stockData={stockData}
                             setStockData={setStockData}
                         />
@@ -39,11 +40,14 @@ export default function StockWidget({ switchStatus, setSwitchStatus }) {
     }
 
     return (
-        <WidgetSwitch
-            setSwitchStatus={setSwitchStatus}
-            switchStatus={switchStatus}
-            onShow={() => setSwitchStatus(!switchStatus)}
-        />
+        <>
+            <p>Stocks</p>
+            <StockSwitch
+
+                switchStatus={switchStatus}
+                setSwitchStatus={setSwitchStatus}
+            />
+        </>
     )
 }
 
@@ -112,5 +116,21 @@ function StockDisplay({ stockData, setStockData }) {
                 </div>
             </div>
         ))
+    )
+}
+
+function StockSwitch({ switchStatus, setSwitchStatus }) {
+
+
+    function handleToggle() {
+        setSwitchStatus(!switchStatus);
+        return switchStatus;
+    }
+
+    return (
+        <div className="form-check form-switch">
+            <input onChange={handleToggle} checked={switchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+            <label className="form-check-label" htmlFor="flexSwitchCheckDefault"></label>
+        </div>
     )
 }

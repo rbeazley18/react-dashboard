@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import WidgetSwitch from "./widgetSwitch";
+// import WidgetSwitch from "./widgetSwitch";
 
-export default function WeatherWidget({ switchStatus, setSwitchStatus }) {
+export default function WeatherWidget() {
     const [weatherData, setWeatherData] = useState([]);
-    // const [weatherActive, setWeatherActive] = useState(false)
+    const [switchStatus, setSwitchStatus] = useState(false);
 
     useEffect(() => {
         console.log(weatherData);
@@ -19,10 +19,9 @@ export default function WeatherWidget({ switchStatus, setSwitchStatus }) {
         return (
             <div className="card col-md-8 mx-auto p-5" >
                 <h3>Weather</h3>
-                <WidgetSwitch
+                <WeatherSwitch
                     setSwitchStatus={setSwitchStatus}
                     switchStatus={switchStatus}
-                    onShow={() => setSwitchStatus(!switchStatus)}
                 />
                 <div>
                     {weatherData.length > 0 ? (
@@ -44,10 +43,9 @@ export default function WeatherWidget({ switchStatus, setSwitchStatus }) {
     return (
         <>
             <p>Weather</p>
-            <WidgetSwitch
+            <WeatherSwitch
                 setSwitchStatus={setSwitchStatus}
                 switchStatus={switchStatus}
-                onShow={() => setSwitchStatus(!switchStatus)}
             />
         </>
     )
@@ -118,5 +116,19 @@ function WeatherDisplay({ weatherData, setWeatherData }) {
                 </div>
             </div>
         ))
+    )
+}
+
+function WeatherSwitch({ switchStatus, setSwitchStatus }) {
+    function handleToggle() {
+        setSwitchStatus(!switchStatus);
+        return switchStatus;
+    }
+
+    return (
+        <div className="form-check form-switch">
+            <input onChange={handleToggle} checked={switchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+            <label className="form-check-label" htmlFor="flexSwitchCheckDefault"></label>
+        </div>
     )
 }
