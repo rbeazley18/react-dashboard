@@ -5,8 +5,13 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { items } from '../fake-data/data';
-import StockWidget from './stocks';
+import WidgetMenu from '../components/widgetMenu';
+import dynamic from "next/dynamic";
+import { ViewWidgetsButton } from '../components/navbar';
 
+export const DynamicWidgetMenu = dynamic(() => import('../components/widgetMenu'), {
+    ssr: false,
+})
 
 export default function Home() {
     return (
@@ -16,6 +21,7 @@ export default function Home() {
                 <meta name="description" content="Your shopping items." />
             </Head>
             <main>
+                <ViewWidgetsButton />
                 <div className='text-center home'>
                     <h1>Home</h1>
                 </div>

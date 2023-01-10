@@ -12,3 +12,7 @@ img {
 .form-check-input:hover {
     cursor: pointer;
 }
+
+.widget-menu {
+    position: absolute
+}

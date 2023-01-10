@@ -11,6 +11,7 @@ export default function Document() {
             </Head>
             <body>
                 <Main />
+                <div id='widget-menu'/>
                 <NextScript />
             </body>
         </Html>
