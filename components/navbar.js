@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import ClientPortal from "./clientPortal";
+import { useEffect } from "react";
 
 export default function Navbar() {
     return (
@@ -43,16 +44,20 @@ export function ViewCartButton() {
 }
 
 export function ViewWidgetsButton() {
-    const [menuOpen, setMenuOpen] = useState()
+    const [menuOpen, setMenuOpen] = useState(false)
+
+    // useEffect(() => {
+
+    // }, [])
 
     return (
         <>
-            <button type="button" onClick={(setMenuOpen(true))} className="btn btn-primary fw-bold">Select Widgets</button>
+            <button type="button" onClick={() => setMenuOpen(true)} className="btn btn-primary fw-bold">Select Widgets</button>
             {menuOpen && (
                 <ClientPortal selector="#widget-menu">
-                    <div className="">
-                        <div className="widget-menu">
-                            <p>
+                    <div className="widget-menu border">
+                        <div className="row justify-content-start">
+                            <p className="col-4">
                                 This modal is rendered using{' '}
                                 <a
                                     href="https://reactjs.org/docs/portals.html"
@@ -63,32 +68,10 @@ export function ViewWidgetsButton() {
                                 </a>
                                 .
                             </p>
-                            <button type="button" onClick={() => setMenuOpen(false)}>
+                            <button className="btn btn-primary" type="button" onClick={() => setMenuOpen(false)}>
                                 Close Menu
                             </button>
                         </div>
-                        <style jsx>{`
-              :global(body) {
-                overflow: hidden;
-              }
-              .backdrop {
-                position: fixed;
-                background-color: rgba(0, 0, 0, 0.7);
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-              }
-              .modal {
-                background-color: white;
-                position: absolute;
-                top: 10%;
-                right: 10%;
-                bottom: 10%;
-                left: 10%;
-                padding: 1em;
-              }
-            `}</style>
                     </div>
                 </ClientPortal>
             )}
