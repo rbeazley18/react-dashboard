@@ -1,33 +1,29 @@
-import { createPortal } from "react-dom";
 import { useState, useEffect } from "react";
+import ClientPortal from "./clientPortal";
+import Widgets from "./widgets";
 
-export default function WidgetMenu() {
-    // const [_document, set_document] = useState(null)
+export default function ViewWidgetsButton() {
+    const [menuOpen, setMenuOpen] = useState(false)
 
     // useEffect(() => {
-    //     set_document(document)
+
     // }, [])
+
     return (
-        <div>
-            {
-                createPortal(
-                    <WidgetList />,
-                    document.body
-                )
-            }
-        </div>
-
-    )
-}
-
-function WidgetList() {
-    return (
-        <div>
-            <div className="widget-menu container" >
-                <div className="col-1 border h-100 p-5" style={{ height: 100 }}>
-                </div>
-
-            </div>
-        </div>
+        <>
+            <button type="button" onClick={() => setMenuOpen(true)} className="btn btn-primary fw-bold">Select Widgets</button>
+            {menuOpen && (
+                <ClientPortal selector="#widget-menu">
+                    <div className="container mr-auto widget-menu border">
+                        <div>
+                            <Widgets />
+                        </div>
+                        <button className="btn btn-danger" type="button" onClick={() => setMenuOpen(false)}>
+                            Close Menu
+                        </button>
+                    </div>
+                </ClientPortal>
+            )}
+        </>
     )
 }

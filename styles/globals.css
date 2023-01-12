@@ -14,5 +14,6 @@ img {
 }
 
 .widget-menu {
-    position: absolute
+    position: absolute;
+    width: auto;
 }

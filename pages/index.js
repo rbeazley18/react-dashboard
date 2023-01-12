@@ -7,11 +7,11 @@ import { createPortal } from 'react-dom';
 import { items } from '../fake-data/data';
 import WidgetMenu from '../components/widgetMenu';
 import dynamic from "next/dynamic";
-import { ViewWidgetsButton } from '../components/navbar';
+import ViewWidgetsButton from '../components/widgetMenu';
 
-export const DynamicWidgetMenu = dynamic(() => import('../components/widgetMenu'), {
-    ssr: false,
-})
+// export const DynamicWidgetMenu = dynamic(() => import('../components/widgetMenu'), {
+//     ssr: false,
+// })
 
 export default function Home() {
     return (
