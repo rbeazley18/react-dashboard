@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 // import WidgetSwitch from "./widgetSwitch";
+import ClientPortal from "./clientPortal";
 
 export default function WeatherWidget() {
     const [weatherData, setWeatherData] = useState([]);
@@ -17,25 +18,29 @@ export default function WeatherWidget() {
 
     if (switchStatus) {
         return (
-            <div className="card col-md-8 mx-auto p-5" >
+            <div className="p-5" >
                 <h3>Weather</h3>
                 <WeatherSwitch
                     setSwitchStatus={setSwitchStatus}
                     switchStatus={switchStatus}
                 />
-                <div>
-                    {weatherData.length > 0 ? (
-                        <WeatherDisplay
-                            weatherData={weatherData}
-                            setWeatherData={setWeatherData}
-                        />
-                    ) : (
-                        <WeatherSearch
-                            weatherData={weatherData}
-                            setWeatherData={setWeatherData}
-                        />
-                    )}
-                </div>
+                <ClientPortal selector='#widget'>
+                    <div className="row justify-content-end">
+                        <div className="card col-6 p-5">
+                            {weatherData.length > 0 ? (
+                                <WeatherDisplay
+                                    weatherData={weatherData}
+                                    setWeatherData={setWeatherData}
+                                />
+                            ) : (
+                                <WeatherSearch
+                                    weatherData={weatherData}
+                                    setWeatherData={setWeatherData}
+                                />
+                            )}
+                        </div>
+                    </div>
+                </ClientPortal>
             </div>
         )
     }
@@ -87,7 +92,7 @@ function WeatherSearch({ weatherData, setWeatherData }) {
 
     return (
         <div>
-            <h3>Search Weather</h3>
+            <h6 className="m-3">Search Weather</h6>
             <form onSubmit={handleSubmit} className="input-group">
                 <input type="text" id="city" name="city" className="form-control" placeholder="City..." required />
                 <button className="btn btn-primary" type="submit">Submit</button>

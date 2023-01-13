@@ -1,6 +1,6 @@
 html,
 body {
-  font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 img {
@@ -16,4 +16,20 @@ img {
 .widget-menu {
     position: absolute;
     width: auto;
+
+    /* z-index: -1; */
 }
+
+.navbar-widget-btn {
+    position: relative;
+}
+
+body {
+    background-color: rgb(85, 85, 85);
+    color: white;
+}
+
+.product-card {
+    max-width: 1000px;
+}
+

@@ -10,8 +10,7 @@ export default function Document() {
                 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap" rel="stylesheet" />
             </Head>
             <body>
-                <Main />
-                
+                <Main /> 
                 <NextScript />
             </body>
         </Html>

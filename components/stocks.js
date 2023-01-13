@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 // import WidgetSwitch from "./widgetSwitch";
+import ClientPortal from "./clientPortal";
 
 export default function StockWidget() {
     const [stockData, setStockData] = useState([]);
@@ -16,25 +17,29 @@ export default function StockWidget() {
 
     if (switchStatus) {
         return (
-            <div className="card col-md-8 mx-auto p-5" >
+            <div className="p-5" >
                 <h3>Stocks</h3>
                 <StockSwitch
                     switchStatus={switchStatus}
                     setSwitchStatus={setSwitchStatus}
                 />
-                <div>
-                    {stockData.length > 0 ? (
-                        <StockDisplay
-                            stockData={stockData}
-                            setStockData={setStockData}
-                        />
-                    ) : (
-                        <StockSearch
-                            stockData={stockData}
-                            setStockData={setStockData}
-                        />
-                    )}
-                </div>
+                <ClientPortal selector='#widget'>
+                    <div className="row justify-content-end">
+                        <div className="card col-6 p-5">
+                            {stockData.length > 0 ? (
+                                <StockDisplay
+                                    stockData={stockData}
+                                    setStockData={setStockData}
+                                />
+                            ) : (
+                                <StockSearch
+                                    stockData={stockData}
+                                    setStockData={setStockData}
+                                />
+                            )}
+                        </div>
+                    </div>
+                </ClientPortal>
             </div>
         )
     }
@@ -43,7 +48,6 @@ export default function StockWidget() {
         <>
             <p>Stocks</p>
             <StockSwitch
-
                 switchStatus={switchStatus}
                 setSwitchStatus={setSwitchStatus}
             />
@@ -87,7 +91,7 @@ function StockSearch({ stockData, setStockData }) {
 
     return (
         <div>
-            <h3>Search Stocks</h3>
+            <h6 className="m-3">Search Stocks</h6>
             <form onSubmit={handleSubmit} className="input-group">
                 <input type="text" id="stock" name="stock" className="form-control" placeholder="Stock..." required />
                 <button className="btn btn-primary" type="submit">Submit</button>

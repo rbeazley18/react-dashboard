@@ -9,10 +9,6 @@ import WidgetMenu from '../components/widgetMenu';
 import dynamic from "next/dynamic";
 import ViewWidgetsButton from '../components/widgetMenu';
 
-// export const DynamicWidgetMenu = dynamic(() => import('../components/widgetMenu'), {
-//     ssr: false,
-// })
-
 export default function Home() {
     return (
         <>
@@ -21,7 +17,9 @@ export default function Home() {
                 <meta name="description" content="Your shopping items." />
             </Head>
             <main>
-                <ViewWidgetsButton />
+                <div className="navbar-widget-btn mx-2">
+                    <ViewWidgetsButton />
+                </div>
                 <div className='text-center home'>
                     <h1>Home</h1>
                 </div>
@@ -39,7 +37,7 @@ function ProductCard({ items }) {
 
     return (
         items.map(item =>
-            <div className="row row-cols-2 row-cols-md-3 g-4 justify-content-center" key={item.name}>
+            <div className="row mx-auto row-cols-2 row-cols-md-3 g-4 justify-content-center product-card" key={item.name}>
                 <div className="col">
                     <div className="card m-2">
                         <Image src={item.img} className="card-img-top" width={100} height={100} quality={100} alt="default image" />
