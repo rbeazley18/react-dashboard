@@ -17,15 +17,14 @@ export default function StockWidget() {
 
     if (switchStatus) {
         return (
-            <div className="p-5" >
-                <h3>Stocks</h3>
+            <div className="">
                 <StockSwitch
                     switchStatus={switchStatus}
                     setSwitchStatus={setSwitchStatus}
                 />
                 <ClientPortal selector='#widget'>
-                    <div className="row justify-content-end">
-                        <div className="card col-6 p-5">
+                    <div className="row justify-content-center">
+                        <div className="card col-6 p-5 m-3">
                             {stockData.length > 0 ? (
                                 <StockDisplay
                                     stockData={stockData}
@@ -45,13 +44,10 @@ export default function StockWidget() {
     }
 
     return (
-        <>
-            <p>Stocks</p>
-            <StockSwitch
-                switchStatus={switchStatus}
-                setSwitchStatus={setSwitchStatus}
-            />
-        </>
+        <StockSwitch
+            switchStatus={switchStatus}
+            setSwitchStatus={setSwitchStatus}
+        />
     )
 }
 
@@ -91,7 +87,7 @@ function StockSearch({ stockData, setStockData }) {
 
     return (
         <div>
-            <h6 className="m-3">Search Stocks</h6>
+            <p className="lead">Search Stocks</p>
             <form onSubmit={handleSubmit} className="input-group">
                 <input type="text" id="stock" name="stock" className="form-control" placeholder="Stock..." required />
                 <button className="btn btn-primary" type="submit">Submit</button>
@@ -132,9 +128,9 @@ function StockSwitch({ switchStatus, setSwitchStatus }) {
     }
 
     return (
-        <div className="form-check form-switch">
+        <div className="form-check form-switch m-3">
             <input onChange={handleToggle} checked={switchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-            <label className="form-check-label" htmlFor="flexSwitchCheckDefault"></label>
+            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Stocks</label>
         </div>
     )
 }

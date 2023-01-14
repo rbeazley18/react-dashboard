@@ -6,19 +6,19 @@ export default function Widgets() {
     // const [switchStatus, setSwitchStatus] = useState(false);
 
     return (
-        <>
-            <div className="m-5">
+        <div className="text-light">
+            <div className="mx-3">
                 <WeatherWidget
                     // switchStatus={switchStatus}
                     // setSwitchStatus={setSwitchStatus}
                 />
             </div>
-            <div className="m-5">
+            <div className="mx-3">
                 <StockWidget
                     // switchStatus={switchStatus}
                     // setSwitchStatus={setSwitchStatus}
                 />
             </div>
-        </>
+        </div>
     )
 }

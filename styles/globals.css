@@ -16,8 +16,6 @@ img {
 .widget-menu {
     position: absolute;
     width: auto;
-
-    /* z-index: -1; */
 }
 
 .navbar-widget-btn {
@@ -26,7 +24,7 @@ img {
 
 body {
     background-color: rgb(85, 85, 85);
-    color: white;
+    /* color: white; */
 }
 
 .product-card {

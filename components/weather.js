@@ -18,41 +18,41 @@ export default function WeatherWidget() {
 
     if (switchStatus) {
         return (
-            <div className="p-5" >
-                <h3>Weather</h3>
-                <WeatherSwitch
-                    setSwitchStatus={setSwitchStatus}
-                    switchStatus={switchStatus}
-                />
-                <ClientPortal selector='#widget'>
-                    <div className="row justify-content-end">
-                        <div className="card col-6 p-5">
-                            {weatherData.length > 0 ? (
-                                <WeatherDisplay
-                                    weatherData={weatherData}
-                                    setWeatherData={setWeatherData}
-                                />
-                            ) : (
-                                <WeatherSearch
-                                    weatherData={weatherData}
-                                    setWeatherData={setWeatherData}
-                                />
-                            )}
+            <>
+                <div className="">
+                    <WeatherSwitch
+                        setSwitchStatus={setSwitchStatus}
+                        switchStatus={switchStatus}
+                    />
+                </div>
+                <div>
+                    <ClientPortal selector='#widget'>
+                        <div className="row justify-content-center">
+                            <div className="card col-6 p-5">
+                                {weatherData.length > 0 ? (
+                                    <WeatherDisplay
+                                        weatherData={weatherData}
+                                        setWeatherData={setWeatherData}
+                                    />
+                                ) : (
+                                    <WeatherSearch
+                                        weatherData={weatherData}
+                                        setWeatherData={setWeatherData}
+                                    />
+                                )}
+                            </div>
                         </div>
-                    </div>
-                </ClientPortal>
-            </div>
+                    </ClientPortal>
+                </div>
+            </>
         )
     }
 
     return (
-        <>
-            <p>Weather</p>
-            <WeatherSwitch
-                setSwitchStatus={setSwitchStatus}
-                switchStatus={switchStatus}
-            />
-        </>
+        <WeatherSwitch
+            setSwitchStatus={setSwitchStatus}
+            switchStatus={switchStatus}
+        />
     )
 }
 
@@ -92,7 +92,7 @@ function WeatherSearch({ weatherData, setWeatherData }) {
 
     return (
         <div>
-            <h6 className="m-3">Search Weather</h6>
+            <p className="lead">Search Weather</p>
             <form onSubmit={handleSubmit} className="input-group">
                 <input type="text" id="city" name="city" className="form-control" placeholder="City..." required />
                 <button className="btn btn-primary" type="submit">Submit</button>
@@ -131,9 +131,9 @@ function WeatherSwitch({ switchStatus, setSwitchStatus }) {
     }
 
     return (
-        <div className="form-check form-switch">
+        <div className="form-check form-switch m-3">
             <input onChange={handleToggle} checked={switchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-            <label className="form-check-label" htmlFor="flexSwitchCheckDefault"></label>
+            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Weather</label>
         </div>
     )
 }
