@@ -16,6 +16,7 @@ img {
 .widget-menu {
     position: absolute;
     width: auto;
+    background: rgb(17, 78, 17);
 }
 
 .navbar-widget-btn {
