@@ -8,16 +8,10 @@ export default function Widgets() {
     return (
         <div className="text-light">
             <div className="mx-3">
-                <WeatherWidget
-                    // switchStatus={switchStatus}
-                    // setSwitchStatus={setSwitchStatus}
-                />
+                <WeatherWidget />
             </div>
             <div className="mx-3">
-                <StockWidget
-                    // switchStatus={switchStatus}
-                    // setSwitchStatus={setSwitchStatus}
-                />
+                <StockWidget />
             </div>
         </div>
     )
