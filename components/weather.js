@@ -28,7 +28,9 @@ export default function WeatherWidget() {
                 <div>
                     <ClientPortal selector='#widget'>
                         <div className="row justify-content-center">
-                            <div className="card col-6 p-5">
+                            <div className="card col-6 p-3 m-3">
+                                <button className="btn-close ms-auto p-0 mb-1 close-button" type="button" onClick={() => setSwitchStatus(false)} aria-label="Close">
+                                </button>
                                 {weatherData.length > 0 ? (
                                     <WeatherDisplay
                                         weatherData={weatherData}

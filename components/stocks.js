@@ -24,7 +24,9 @@ export default function StockWidget() {
                 />
                 <ClientPortal selector='#widget'>
                     <div className="row justify-content-center">
-                        <div className="card col-6 p-5 m-3">
+                        <div className="card col-6 p-3 m-3">
+                            <button className="btn-close ms-auto p-0 m-0 close-button" type="button" onClick={() => setSwitchStatus(false)} aria-label="Close">
+                            </button>
                             {stockData.length > 0 ? (
                                 <StockDisplay
                                     stockData={stockData}
