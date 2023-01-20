@@ -14,7 +14,7 @@ export default function ViewWidgetsButton() {
             {!menuOpen && (<button type="button" onClick={() => setMenuOpen(true)} className="btn btn-primary fw-bold">Widgets</button>)}
             {menuOpen && (
                 <ClientPortal selector="#widget-menu">
-                    <div className="container h-100 widget-menu border border-start-0 rounded-end">
+                    <div className="d-block container h-100 widget-menu border border-start-0 rounded-end">
                         <div className="row justify-content-end">
                             <button className="btn-close btn-close-white p-0 m-1 close-button" type="button" onClick={() => setMenuOpen(false)} aria-label="Close">
                             </button>
