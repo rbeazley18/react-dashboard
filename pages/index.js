@@ -3,9 +3,12 @@ import Image from 'next/image'
 // import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { items } from '../fake-data/data';
-import StockWidget from './stocks';
-
+import WidgetMenu from '../components/widgetMenu';
+import dynamic from "next/dynamic";
+import ViewWidgetsButton from '../components/widgetMenu';
+import StockWidget from '../components/stocks';
 
 export default function Home() {
     return (
@@ -15,11 +18,15 @@ export default function Home() {
                 <meta name="description" content="Your shopping items." />
             </Head>
             <main>
-                <div className='text-center'>
-                    <h1>Home</h1>
+                <div className="navbar-widget-btn mx-2">
+                    <ViewWidgetsButton />
                     <StockWidget />
                 </div>
-                <div className='mt-5'>
+                <div className='text-center home'>
+                    <h1>Home</h1>
+                </div>
+                <div className='container-fluid'>
+                    <div id='preview'/>
                     <ProductCard items={items} />
                 </div>
             </main>
@@ -33,10 +40,10 @@ function ProductCard({ items }) {
 
     return (
         items.map(item =>
-            <div className="row row-cols-2 row-cols-md-3 g-4 justify-content-center" key={item.name}>
+            <div className="row mx-auto row-cols-2 row-cols-md-3 g-4 justify-content-center product-card" key={item.name}>
                 <div className="col">
                     <div className="card m-2">
-                        <Image src={item.img} className="card-img-top" width={100} height={100} quality={100} alt="default image" />
+                        <Image src={item.img} className="card-img-top" width={100} height={100} quality={100} alt="default image" priority />
                         <div className="card-body">
                             <h5 className="card-title">{item.name}</h5>
                             <p className="card-text">{item.description}</p>
@@ -100,9 +107,7 @@ function AddToCartButton({ cart, setCart, item }) {
 
     return (
         <div>
-            {/* <form onSubmit={handleSubmit}> */}
-                <button type="submit" onClick={handleSubmit} className="btn btn-primary" name="addToCartBtn">Add to Cart</button>
-            {/* </form> */}
+            <button type="submit" onClick={handleSubmit} className="btn btn-primary" name="addToCartBtn">Add to Cart</button>
         </div>
     )
 }
@@ -111,14 +116,28 @@ function PreviewButton({ item }) {
     const [preview, setPreview] = useState(false);
 
     if (preview) {
-        return (
-            <div className='border'>
-                <h5 className="card-title">{item.name}</h5>
-                <p className="card-text">{item.description}</p>
-                <p className="card-text">{item.price}</p>
-                <button onClick={() => setPreview(false)} className="btn btn-secondary text-light" name="hideBtn">Hide</button>
-            </div>
+        const previewDiv = document.getElementById('preview');
 
+        return (
+            <>
+                {createPortal(
+                    <div className='d-flex justify-content-center position-relative'>
+                        <div className='itemPreview col-6 position-fixed bg-dark shadow-lg text-light m-5 p-0 rounded'
+                        // style={{width: '1000px', height: '500px'}}
+                        >
+                            <div className='text-end'>
+                                <button className="btn-close btn-close-white p-0 m-1 preview-close-button" type="button" onClick={() => setPreview(false)} aria-label="Close">
+                                </button>
+                            </div>
+                            <div className='text-center m-5'>
+                                <h5 className="card-title">{item.name}</h5>
+                                <p className="card-text">{item.description}</p>
+                                <p className="card-text">{item.price}</p>
+                                <button onClick={() => setPreview(false)} className="btn btn-secondary text-light" name="hideBtn">Hide</button>
+                            </div>
+                        </div>
+                    </div>, previewDiv)}
+            </>
         )
     }
 

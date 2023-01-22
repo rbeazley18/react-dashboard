@@ -1,13 +1,16 @@
 import Navbar from './navbar'
-import WeatherWidget from './weather'
-import StockWidget from '../pages/stocks'
-
+import Widgets from './widgets'
+import { useState } from 'react'
+import { DynamicWidgetMenu } from '../pages'
+import StockWidget from './stocks'
 export default function Layout({ children }) {
+// import ViewWidgetsButton from './widgetMenu';
+
     return (
         <>
             <Navbar />
-            <WeatherWidget />
             {/* <StockWidget /> */}
+            {/* <ViewWidgetsButton /> */}
             <main>{children}</main>
         </>
     )

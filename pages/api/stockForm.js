@@ -1,14 +1,13 @@
-import loadWeather from "../../lib/openweather";
+import { loadStocks } from "../../lib/alphavantage";
 
-export default async function getWeatherHandler(req, res) {
+export default async function getStockHandler(req, res) {
     // Get data submitted in request's body.
     const body = req.body
-    const searchedCity = body.city
-    // Optional logging to see the responses
-    // in the command line where next.js app is running.
+    const searchedStock = body.stock
+
     // console.log('body: ', body)
   
-    if (!body.city) {
+    if (!body.stock) {
       // Sends a HTTP bad request error code
       return res.status(400).json({ data: 'City not found' })
     }
@@ -17,7 +16,7 @@ export default async function getWeatherHandler(req, res) {
     // res.status(200).json({ data: `${searchedCity}` })
 
     // Send to openweather
-    const data = await loadWeather(searchedCity)
+    const data = await loadStocks(searchedStock);
 
     res.json(data);
   }

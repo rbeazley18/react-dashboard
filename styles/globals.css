@@ -1,10 +1,43 @@
 html,
 body {
-  font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 img {
     object-fit: cover;
     width: auto;
     height: auto;
+}
+
+.form-check-input:hover {
+    cursor: pointer;
+}
+
+.widget-menu {
+    position: absolute;
+    width: auto;
+    background: rgb(56, 128, 56);
+}
+
+.navbar-widget-btn {
+    position: relative;
+}
+
+body {
+    background-color: rgb(57, 57, 57);
+    /* color: white; */
+}
+
+.product-card {
+    max-width: 1000px;
+    /* z-index: -1; */
+}
+
+.itemPreview {
+    /* position: absolute; */
+    z-index: 1;
+    /* align-self: center; */
+    /* height: auto;
+    width: auto; */
+    /* margin: auto; */
 }
