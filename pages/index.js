@@ -25,8 +25,8 @@ export default function Home() {
                 <div className='text-center home'>
                     <h1>Home</h1>
                 </div>
-                <div className='container border rounded'>
-                    <div id='preview' className='position-relative' />
+                <div className='container-fluid'>
+                    <div id='preview'/>
                     <ProductCard items={items} />
                 </div>
             </main>
@@ -121,7 +121,7 @@ function PreviewButton({ item }) {
         return (
             <>
                 {createPortal(
-                    <div className='row justify-content-center'>
+                    <div className='d-flex justify-content-center position-relative'>
                         <div className='itemPreview col-6 position-fixed bg-dark shadow-lg text-light m-5 p-0 rounded'
                         // style={{width: '1000px', height: '500px'}}
                         >
