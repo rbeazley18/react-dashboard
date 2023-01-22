@@ -8,6 +8,7 @@ import { items } from '../fake-data/data';
 import WidgetMenu from '../components/widgetMenu';
 import dynamic from "next/dynamic";
 import ViewWidgetsButton from '../components/widgetMenu';
+import StockWidget from '../components/stocks';
 
 export default function Home() {
     return (
@@ -19,11 +20,13 @@ export default function Home() {
             <main>
                 <div className="navbar-widget-btn mx-2">
                     <ViewWidgetsButton />
+                    <StockWidget />
                 </div>
                 <div className='text-center home'>
                     <h1>Home</h1>
                 </div>
-                <div className='mt-5'>
+                <div className='container border rounded'>
+                    <div id='preview' className='position-relative' />
                     <ProductCard items={items} />
                 </div>
             </main>
@@ -40,7 +43,7 @@ function ProductCard({ items }) {
             <div className="row mx-auto row-cols-2 row-cols-md-3 g-4 justify-content-center product-card" key={item.name}>
                 <div className="col">
                     <div className="card m-2">
-                        <Image src={item.img} className="card-img-top" width={100} height={100} quality={100} alt="default image" />
+                        <Image src={item.img} className="card-img-top" width={100} height={100} quality={100} alt="default image" priority />
                         <div className="card-body">
                             <h5 className="card-title">{item.name}</h5>
                             <p className="card-text">{item.description}</p>
@@ -113,14 +116,27 @@ function PreviewButton({ item }) {
     const [preview, setPreview] = useState(false);
 
     if (preview) {
+        const previewDiv = document.getElementById('preview');
+
         return (
             <>
-                {createPortal(<div className='border'>
-                    <h5 className="card-title">{item.name}</h5>
-                    <p className="card-text">{item.description}</p>
-                    <p className="card-text">{item.price}</p>
-                    <button onClick={() => setPreview(false)} className="btn btn-secondary text-light" name="hideBtn">Hide</button>
-                </div>, document.body)}
+                {createPortal(
+                    <div className='row justify-content-center'>
+                        <div className='itemPreview col-6 position-fixed bg-dark shadow-lg text-light m-5 p-0 rounded'
+                        // style={{width: '1000px', height: '500px'}}
+                        >
+                            <div className='text-end'>
+                                <button className="btn-close btn-close-white p-0 m-1 preview-close-button" type="button" onClick={() => setPreview(false)} aria-label="Close">
+                                </button>
+                            </div>
+                            <div className='text-center m-5'>
+                                <h5 className="card-title">{item.name}</h5>
+                                <p className="card-text">{item.description}</p>
+                                <p className="card-text">{item.price}</p>
+                                <button onClick={() => setPreview(false)} className="btn btn-secondary text-light" name="hideBtn">Hide</button>
+                            </div>
+                        </div>
+                    </div>, previewDiv)}
             </>
         )
     }

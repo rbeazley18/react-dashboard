@@ -30,5 +30,14 @@ body {
 
 .product-card {
     max-width: 1000px;
+    /* z-index: -1; */
 }
 
+.itemPreview {
+    /* position: absolute; */
+    z-index: 1;
+    /* align-self: center; */
+    /* height: auto;
+    width: auto; */
+    /* margin: auto; */
+}

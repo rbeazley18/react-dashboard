@@ -4,53 +4,85 @@ import ClientPortal from "./clientPortal";
 
 export default function StockWidget() {
     const [stockData, setStockData] = useState([]);
-    const [switchStatus, setSwitchStatus] = useState(false);
+    const [widgetStatus, setWidgetStatus] = useState(false);
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setWidgetStatus(JSON.parse(window.localStorage.getItem('switchStatus')));
+            console.log(widgetStatus);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        console.log(widgetStatus);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         console.log(stockData);
     }, [stockData])
 
-    useEffect(() => {
-        console.log(switchStatus);
-    }, [switchStatus])
+    // useEffect(() => {
+    //     console.log(switchStatus);
+    // }, [switchStatus])
 
 
-    if (switchStatus) {
+    // if (switchStatus) {
+    //     return (
+    //         <div className="">
+    //             <StockSwitch
+    //                 switchStatus={switchStatus}
+    //                 setSwitchStatus={setSwitchStatus}
+    //             />
+    //             <ClientPortal selector='#widget'>
+    //                 <div className="row justify-content-center">
+    //                     <div className="card col-6 p-3 m-3">
+    //                         <button className="btn-close ms-auto p-0 m-0 close-button" type="button" onClick={() => setSwitchStatus(false)} aria-label="Close">
+    //                         </button>
+    //                         {stockData.length > 0 ? (
+    //                             <StockDisplay
+    //                                 stockData={stockData}
+    //                                 setStockData={setStockData}
+    //                             />
+    //                         ) : (
+    //                             <StockSearch
+    //                                 stockData={stockData}
+    //                                 setStockData={setStockData}
+    //                             />
+    //                         )}
+    //                     </div>
+    //                 </div>
+    //             </ClientPortal>
+    //         </div>
+    //     )
+    // }
+
+    if (widgetStatus) {
         return (
-            <div className="">
-                <StockSwitch
-                    switchStatus={switchStatus}
-                    setSwitchStatus={setSwitchStatus}
-                />
-                <ClientPortal selector='#widget'>
-                    <div className="row justify-content-center">
-                        <div className="card col-6 p-3 m-3">
-                            <button className="btn-close ms-auto p-0 m-0 close-button" type="button" onClick={() => setSwitchStatus(false)} aria-label="Close">
-                            </button>
-                            {stockData.length > 0 ? (
-                                <StockDisplay
-                                    stockData={stockData}
-                                    setStockData={setStockData}
-                                />
-                            ) : (
-                                <StockSearch
-                                    stockData={stockData}
-                                    setStockData={setStockData}
-                                />
-                            )}
-                        </div>
+            <>
+                
+                <div className="row justify-content-center">
+                    <div className="card col-6 p-3 m-3">
+                        <button className="btn-close ms-auto p-0 m-0 close-button" type="button" onClick={() => setWidgetStatus(false)} aria-label="Close">
+                        </button>
+                        {stockData.length > 0 ? (
+                            <StockDisplay
+                                stockData={stockData}
+                                setStockData={setStockData}
+                            />
+                        ) : (
+                            <StockSearch
+                                stockData={stockData}
+                                setStockData={setStockData}
+                            />
+                        )}
                     </div>
-                </ClientPortal>
-            </div>
+                </div>
+               
+            </>
         )
     }
-
-    return (
-        <StockSwitch
-            switchStatus={switchStatus}
-            setSwitchStatus={setSwitchStatus}
-        />
-    )
 }
 
 function StockSearch({ stockData, setStockData }) {
@@ -121,18 +153,18 @@ function StockDisplay({ stockData, setStockData }) {
     )
 }
 
-function StockSwitch({ switchStatus, setSwitchStatus }) {
+// export function StockSwitch({ switchStatus, setSwitchStatus }) {
 
 
-    function handleToggle() {
-        setSwitchStatus(!switchStatus);
-        return switchStatus;
-    }
+//     function handleToggle() {
+//         setSwitchStatus(!switchStatus);
+//         return switchStatus;
+//     }
 
-    return (
-        <div className="form-check form-switch m-3">
-            <input onChange={handleToggle} checked={switchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Stocks</label>
-        </div>
-    )
-}
+//     return (
+//         <div className="form-check form-switch m-3">
+//             <input onChange={handleToggle} checked={switchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+//             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Stocks</label>
+//         </div>
+//     )
+// }
