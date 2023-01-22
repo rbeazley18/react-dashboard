@@ -14,7 +14,7 @@ export default function Navbar() {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
-                    <div className="navbar-nav">
+                    <div className="navbar-nav fw-bold">
                         <Link className="nav-link active" aria-current="page" href={'/'}>Home</Link>
                         <Link className="nav-link" href={'/cart'}>Cart</Link>
                         <a className="nav-link" href="#">Pricing</a>
