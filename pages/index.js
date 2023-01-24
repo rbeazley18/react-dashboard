@@ -9,6 +9,8 @@ import WidgetMenu from '../components/widgetMenu';
 import dynamic from "next/dynamic";
 import ViewWidgetsButton from '../components/widgetMenu';
 import StockWidget from '../components/stocks';
+import WeatherWidget from '../components/weather';
+import Widgets from '../components/widgets';
 
 export default function Home() {
     return (
@@ -20,9 +22,9 @@ export default function Home() {
             <main>
                 <div className="navbar-widget-btn mx-2">
                     <ViewWidgetsButton />
-                    <StockWidget />
+                    <Widgets />
                 </div>
-                <div className='text-center home'>
+                <div className='text-center home text-light'>
                     <h1>Home</h1>
                 </div>
                 <div className='container-fluid'>
@@ -122,7 +124,7 @@ function PreviewButton({ item }) {
             <>
                 {createPortal(
                     <div className='d-flex justify-content-center position-relative'>
-                        <div className='itemPreview col-6 position-fixed bg-dark shadow-lg text-light m-5 p-0 rounded'
+                        <div className='itemPreview col-6 position-fixed bg-warning shadow-lg text-dark lead m-5 p-0 rounded'
                         // style={{width: '1000px', height: '500px'}}
                         >
                             <div className='text-end'>
@@ -130,7 +132,7 @@ function PreviewButton({ item }) {
                                 </button>
                             </div>
                             <div className='text-center m-5'>
-                                <h5 className="card-title">{item.name}</h5>
+                                <h5 className="card-title fw-bold">{item.name}</h5>
                                 <p className="card-text">{item.description}</p>
                                 <p className="card-text">{item.price}</p>
                                 <button onClick={() => setPreview(false)} className="btn btn-secondary text-light" name="hideBtn">Hide</button>

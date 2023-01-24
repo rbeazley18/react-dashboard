@@ -5,7 +5,7 @@ import ViewWidgetsButton from "./widgetMenu";
 
 export default function Navbar() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark text-light">
             <div className="container-fluid">
                 {/* <div className="navbar-widget-btn">
                     <ViewWidgetsButton />

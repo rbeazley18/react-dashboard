@@ -5,7 +5,9 @@ import Widgets from "./widgets";
 
 export default function ViewWidgetsButton() {
     const [menuOpen, setMenuOpen] = useState(false)
-    const [switchStatus, setSwitchStatus] = useState(false);
+    const [stockSwitchStatus, setStockSwitchStatus] = useState(false);
+    const [weatherSwitchStatus, setWeatherSwitchStatus] = useState(false);
+
     // useEffect(() => {
 
     // }, [])
@@ -23,45 +25,62 @@ export default function ViewWidgetsButton() {
                         <div className="row justify-content-start">
                             <div className="col-4">
                                 <StockSwitch
-                                    key="stocks"
-                                    switchStatus={switchStatus}
-                                    setSwitchStatus={setSwitchStatus}
+                                    stockSwitchStatus={stockSwitchStatus}
+                                    setStockSwitchStatus={setStockSwitchStatus}
                                 />
-                                {/* <Widgets /> */}
+                                <WeatherSwitch
+                                    weatherSwitchStatus={weatherSwitchStatus}
+                                    setWeatherSwitchStatus={setWeatherSwitchStatus}
+                                />
                             </div>
                         </div>
                     </div>
                 </ClientPortal>
             )}
-            {/* {switchStatus && (<StockWidget />)} */}
         </>
     )
 }
 
-function StockSwitch({ switchStatus, setSwitchStatus }) {
-
+function StockSwitch({ stockSwitchStatus, setStockSwitchStatus }) {
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            setSwitchStatus(JSON.parse(window.localStorage.getItem('switchStatus')));
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setStockSwitchStatus(JSON.parse(window.localStorage.getItem('stockSwitchStatus')));
     }, []);
 
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            window.localStorage.setItem('switchStatus', switchStatus);
-        }
-    }, [switchStatus]);
+        window.localStorage.setItem('stockSwitchStatus', stockSwitchStatus);
+    }, [stockSwitchStatus]);
 
     function handleToggle() {
-        return setSwitchStatus(!switchStatus);
-        // return switchStatus;
+        return setStockSwitchStatus(!stockSwitchStatus);
     }
 
     return (
         <div className="form-check form-switch m-3">
-            <input onChange={handleToggle} checked={switchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+            <input onChange={handleToggle} checked={stockSwitchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
             <label className="form-check-label text-light" htmlFor="flexSwitchCheckDefault">Stocks</label>
+        </div>
+    )
+}
+
+function WeatherSwitch({ weatherSwitchStatus, setWeatherSwitchStatus }) {
+    useEffect(() => {
+        setWeatherSwitchStatus(JSON.parse(window.localStorage.getItem('weatherSwitchStatus')));
+    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        , []);
+
+    useEffect(() => {
+        window.localStorage.setItem('weatherSwitchStatus', weatherSwitchStatus);
+    }, [weatherSwitchStatus]);
+
+    function handleToggle() {
+        return setWeatherSwitchStatus(!weatherSwitchStatus);
+    }
+
+    return (
+        <div className="form-check form-switch m-3">
+            <input onChange={handleToggle} checked={weatherSwitchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+            <label className="form-check-label text-light" htmlFor="flexSwitchCheckDefault">Weather</label>
         </div>
     )
 }

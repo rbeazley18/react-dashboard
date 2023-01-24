@@ -4,58 +4,49 @@ import ClientPortal from "./clientPortal";
 
 export default function WeatherWidget() {
     const [weatherData, setWeatherData] = useState([]);
-    const [switchStatus, setSwitchStatus] = useState(false);
+    const [widgetStatus, setWidgetStatus] = useState(false);
+
+    useEffect(() => {
+        setWidgetStatus(JSON.parse(window.localStorage.getItem('weatherSwitchStatus')));
+        console.log(widgetStatus);
+    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        , [])
+
+    useEffect(() => {
+        console.log(widgetStatus);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         console.log(weatherData);
     }, [weatherData])
 
-    useEffect(() => {
-        console.log(switchStatus);
-    }, [switchStatus])
 
-    // console.log(weatherData);
-
-    if (switchStatus) {
+    if (widgetStatus) {
         return (
             <>
-                <div className="">
-                    <WeatherSwitch
-                        setSwitchStatus={setSwitchStatus}
-                        switchStatus={switchStatus}
-                    />
+                <div className="row justify-content-center">
+                    <div className="card col-6 p-3 m-3">
+                        <button className="btn-close ms-auto p-0 m-0 close-button" type="button" onClick={() => setWidgetStatus(false)} aria-label="Close">
+                        </button>
+                        {weatherData.length > 0 ? (
+                            <WeatherDisplay
+                                weatherData={weatherData}
+                                setWeatherData={setWeatherData}
+                            />
+                        ) : (
+                            <WeatherSearch
+                                weatherData={weatherData}
+                                setWeatherData={setWeatherData}
+                            />
+                        )}
+                    </div>
                 </div>
-                <div>
-                    <ClientPortal selector='#widget'>
-                        <div className="row justify-content-center">
-                            <div className="card col-6 p-3 m-3">
-                                <button className="btn-close ms-auto p-0 mb-1 close-button" type="button" onClick={() => setSwitchStatus(false)} aria-label="Close">
-                                </button>
-                                {weatherData.length > 0 ? (
-                                    <WeatherDisplay
-                                        weatherData={weatherData}
-                                        setWeatherData={setWeatherData}
-                                    />
-                                ) : (
-                                    <WeatherSearch
-                                        weatherData={weatherData}
-                                        setWeatherData={setWeatherData}
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    </ClientPortal>
-                </div>
+
             </>
         )
     }
-
-    return (
-        <WeatherSwitch
-            setSwitchStatus={setSwitchStatus}
-            switchStatus={switchStatus}
-        />
-    )
 }
 
 function WeatherSearch({ weatherData, setWeatherData }) {
@@ -123,19 +114,5 @@ function WeatherDisplay({ weatherData, setWeatherData }) {
                 </div>
             </div>
         ))
-    )
-}
-
-function WeatherSwitch({ switchStatus, setSwitchStatus }) {
-    function handleToggle() {
-        setSwitchStatus(!switchStatus);
-        return switchStatus;
-    }
-
-    return (
-        <div className="form-check form-switch m-3">
-            <input onChange={handleToggle} checked={switchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Weather</label>
-        </div>
     )
 }

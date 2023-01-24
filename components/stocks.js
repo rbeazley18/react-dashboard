@@ -7,12 +7,11 @@ export default function StockWidget() {
     const [widgetStatus, setWidgetStatus] = useState(false);
 
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            setWidgetStatus(JSON.parse(window.localStorage.getItem('switchStatus')));
-            console.log(widgetStatus);
-        }
+        setWidgetStatus(JSON.parse(window.localStorage.getItem('stockSwitchStatus')));
+        console.log(widgetStatus);
+    }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+        , [])
 
     useEffect(() => {
         console.log(widgetStatus);
@@ -23,49 +22,15 @@ export default function StockWidget() {
         console.log(stockData);
     }, [stockData])
 
-    // useEffect(() => {
-    //     console.log(switchStatus);
-    // }, [switchStatus])
-
-
-    // if (switchStatus) {
-    //     return (
-    //         <div className="">
-    //             <StockSwitch
-    //                 switchStatus={switchStatus}
-    //                 setSwitchStatus={setSwitchStatus}
-    //             />
-    //             <ClientPortal selector='#widget'>
-    //                 <div className="row justify-content-center">
-    //                     <div className="card col-6 p-3 m-3">
-    //                         <button className="btn-close ms-auto p-0 m-0 close-button" type="button" onClick={() => setSwitchStatus(false)} aria-label="Close">
-    //                         </button>
-    //                         {stockData.length > 0 ? (
-    //                             <StockDisplay
-    //                                 stockData={stockData}
-    //                                 setStockData={setStockData}
-    //                             />
-    //                         ) : (
-    //                             <StockSearch
-    //                                 stockData={stockData}
-    //                                 setStockData={setStockData}
-    //                             />
-    //                         )}
-    //                     </div>
-    //                 </div>
-    //             </ClientPortal>
-    //         </div>
-    //     )
-    // }
-
     if (widgetStatus) {
         return (
             <>
-                
                 <div className="row justify-content-center">
-                    <div className="card col-6 p-3 m-3">
-                        <button className="btn-close ms-auto p-0 m-0 close-button" type="button" onClick={() => setWidgetStatus(false)} aria-label="Close">
-                        </button>
+                    <div className="card col-6 p-3 pt-1 m-3 bg-dark shadow-lg">
+                        <div className="row">
+                            <button className="btn-close ms-auto btn-close-white p-0 close-button" type="button" onClick={() => setWidgetStatus(false)} aria-label="Close">
+                            </button>
+                        </div>
                         {stockData.length > 0 ? (
                             <StockDisplay
                                 stockData={stockData}
@@ -79,7 +44,7 @@ export default function StockWidget() {
                         )}
                     </div>
                 </div>
-               
+
             </>
         )
     }
@@ -120,7 +85,7 @@ function StockSearch({ stockData, setStockData }) {
     }
 
     return (
-        <div>
+        <div className="text-light">
             <p className="lead">Search Stocks</p>
             <form onSubmit={handleSubmit} className="input-group">
                 <input type="text" id="stock" name="stock" className="form-control" placeholder="Stock..." required />
@@ -135,15 +100,15 @@ function StockDisplay({ stockData, setStockData }) {
 
     return (
         stockData.map((stock) => (
-            <div key={stock["Global Quote"]["01. symbol"]}>
-                <div className="card-header">
-                    Stocks
-                </div>
+            <div className="text-light" key={stock["Global Quote"]["01. symbol"]}>
+                <h3 className="card-header">
+                    Your Stocks
+                </h3>
                 <div className="card-body">
                     <h5 className="card-title">{stock["Global Quote"]["01. symbol"]}</h5>
                     <p className="card-text"></p>
                     <p className="card-text"></p>
-                    <button onClick={() => setStockData([])} className="btn btn-danger">Reset</button>
+                    <button onClick={() => setStockData([])} className="btn btn-warning">Reset</button>
                 </div>
                 <div className="card-footer text-muted">
                     {date}
@@ -152,19 +117,3 @@ function StockDisplay({ stockData, setStockData }) {
         ))
     )
 }
-
-// export function StockSwitch({ switchStatus, setSwitchStatus }) {
-
-
-//     function handleToggle() {
-//         setSwitchStatus(!switchStatus);
-//         return switchStatus;
-//     }
-
-//     return (
-//         <div className="form-check form-switch m-3">
-//             <input onChange={handleToggle} checked={switchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-//             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Stocks</label>
-//         </div>
-//     )
-// }

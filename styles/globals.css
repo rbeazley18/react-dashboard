@@ -1,6 +1,7 @@
 html,
 body {
     font-family: 'Roboto', sans-serif;
+    color: white;
 }
 
 img {
@@ -15,6 +16,7 @@ img {
 
 .widget-menu {
     position: absolute;
+    z-index: 1;
     width: auto;
     background: rgb(56, 128, 56);
 }
@@ -24,8 +26,8 @@ img {
 }
 
 body {
-    background-color: rgb(57, 57, 57);
-    /* color: white; */
+    background-color: rgb(136, 136, 136);
+    /* color: black; */
 }
 
 .product-card {
@@ -40,4 +42,13 @@ body {
     /* height: auto;
     width: auto; */
     /* margin: auto; */
+}
+
+/* .widget {
+    background: gray;
+} */
+
+.card {
+    background-color: var(--bs-dark);
+    background-image: var(--bs-gradient);
 }

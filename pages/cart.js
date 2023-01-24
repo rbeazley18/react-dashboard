@@ -8,7 +8,7 @@ export default function Cart({ cartItems }) {
             <div className="card mb-3 col-4 mx-auto" key={item.id}>
                 <div className="row g-0">
                     <div className="col-md-4">
-                        <Image src="/images/default-placeholder.png" className="card-img-top" width={100} height={100} quality={100} alt="default image" priority />
+                        <Image src="/images/default-placeholder.png" className="card-img"  width={100} height={100} quality={100} alt="default image" priority />
                     </div>
                     <div className="col-md-8">
                         <div className="card-body">
