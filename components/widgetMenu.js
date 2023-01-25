@@ -1,14 +1,11 @@
 import { useState, useEffect, createContext, useContext } from "react";
-import { StockSwitchContext } from "../pages";
+import { StockSwitchContext, WeatherSwitchContext } from "../pages";
 import ClientPortal from "./clientPortal";
-import StockWidget from "./stocks";
-import Widgets from "./widgets";
-
 
 export default function ViewWidgetsButton() {
     const [menuOpen, setMenuOpen] = useState(false)
     // const [stockSwitchStatus, setStockSwitchStatus] = useState(false);
-    const [weatherSwitchStatus, setWeatherSwitchStatus] = useState(false);
+    // const [weatherSwitchStatus, setWeatherSwitchStatus] = useState(false);
 
 
 
@@ -33,8 +30,8 @@ export default function ViewWidgetsButton() {
                                 // setStockSwitchStatus={setStockSwitchStatus}
                                 />
                                 <WeatherSwitch
-                                    weatherSwitchStatus={weatherSwitchStatus}
-                                    setWeatherSwitchStatus={setWeatherSwitchStatus}
+                                    // weatherSwitchStatus={weatherSwitchStatus}
+                                    // setWeatherSwitchStatus={setWeatherSwitchStatus}
                                 />
                             </div>
                         </div>
@@ -50,6 +47,7 @@ function StockSwitch() {
 
     useEffect(() => {
         setStockSwitchStatus(JSON.parse(window.localStorage.getItem('stockSwitchStatus')));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -68,7 +66,9 @@ function StockSwitch() {
     )
 }
 
-function WeatherSwitch({ weatherSwitchStatus, setWeatherSwitchStatus }) {
+function WeatherSwitch() {
+    const { weatherSwitchStatus, setWeatherSwitchStatus } = useContext(WeatherSwitchContext);
+
     useEffect(() => {
         setWeatherSwitchStatus(JSON.parse(window.localStorage.getItem('weatherSwitchStatus')));
     }

@@ -10,13 +10,14 @@ import dynamic from "next/dynamic";
 import ViewWidgetsButton from '../components/widgetMenu';
 import StockWidget from '../components/stocks';
 import WeatherWidget from '../components/weather';
-import Widgets from '../components/widgets';
+import Widgets from '../components/allWidgets';
 
 export const StockSwitchContext = createContext(false);
-
+export const WeatherSwitchContext = createContext(false);
 
 export default function Home() {
     const [stockSwitchStatus, setStockSwitchStatus] = useState(false);
+    const [weatherSwitchStatus, setWeatherSwitchStatus] = useState(false);
 
     return (
         <>
@@ -27,8 +28,10 @@ export default function Home() {
             <main>
                 <div className="navbar-widget-btn mx-2">
                     <StockSwitchContext.Provider value={{ stockSwitchStatus, setStockSwitchStatus }} >
-                        <ViewWidgetsButton />
-                        <Widgets />
+                        <WeatherSwitchContext.Provider value={{ weatherSwitchStatus, setWeatherSwitchStatus }}>
+                            <ViewWidgetsButton />
+                            <Widgets />
+                        </WeatherSwitchContext.Provider>
                     </StockSwitchContext.Provider>
                 </div>
                 <div className='text-center home text-light'>

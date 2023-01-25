@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react";
-// import WidgetSwitch from "./widgetSwitch";
+import { useEffect, useState, useContext } from "react";
 import ClientPortal from "./clientPortal";
+import { WeatherSwitchContext } from "../pages";
 
 export default function WeatherWidget() {
     const [weatherData, setWeatherData] = useState([]);
-    const [widgetStatus, setWidgetStatus] = useState(false);
+    // const [widgetStatus, setWidgetStatus] = useState(false);
+    const { weatherSwitchStatus, setWeatherSwitchStatus } = useContext(WeatherSwitchContext);
 
     useEffect(() => {
-        setWidgetStatus(JSON.parse(window.localStorage.getItem('weatherSwitchStatus')));
-        console.log(widgetStatus);
+        setWeatherSwitchStatus(JSON.parse(window.localStorage.getItem('weatherSwitchStatus')));
+        console.log(weatherSwitchStatus);
     }
         // eslint-disable-next-line react-hooks/exhaustive-deps
         , [])
 
     useEffect(() => {
-        console.log(widgetStatus);
+        console.log(weatherSwitchStatus);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -23,13 +24,15 @@ export default function WeatherWidget() {
     }, [weatherData])
 
 
-    if (widgetStatus) {
+    if (weatherSwitchStatus) {
         return (
             <>
                 <div className="row justify-content-center">
-                    <div className="card col-6 p-3 m-3">
-                        <button className="btn-close ms-auto p-0 m-0 close-button" type="button" onClick={() => setWidgetStatus(false)} aria-label="Close">
-                        </button>
+                    <div className="card col-6 p-3 m-3 pt-1 m-3 shadow-lg">
+                        <div className="row">
+                            <button className="btn-close ms-auto btn-close-white p-0 close-button" type="button" onClick={() => setWeatherSwitchStatus(false)} aria-label="Close">
+                            </button>
+                        </div>
                         {weatherData.length > 0 ? (
                             <WeatherDisplay
                                 weatherData={weatherData}

@@ -18,7 +18,9 @@ img {
     position: absolute;
     z-index: 1;
     width: auto;
-    background: rgb(56, 128, 56);
+    height: auto;
+    background-color: var(--bs-dark);
+    background-image: var(--bs-gradient);
 }
 
 .navbar-widget-btn {
