@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 // import styles from '../styles/Home.module.css'
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { createPortal } from 'react-dom';
 import { items } from '../fake-data/data';
 import WidgetMenu from '../components/widgetMenu';
@@ -12,7 +12,12 @@ import StockWidget from '../components/stocks';
 import WeatherWidget from '../components/weather';
 import Widgets from '../components/widgets';
 
+export const StockSwitchContext = createContext(false);
+
+
 export default function Home() {
+    const [stockSwitchStatus, setStockSwitchStatus] = useState(false);
+
     return (
         <>
             <Head>
@@ -21,14 +26,16 @@ export default function Home() {
             </Head>
             <main>
                 <div className="navbar-widget-btn mx-2">
-                    <ViewWidgetsButton />
-                    <Widgets />
+                    <StockSwitchContext.Provider value={{ stockSwitchStatus, setStockSwitchStatus }} >
+                        <ViewWidgetsButton />
+                        <Widgets />
+                    </StockSwitchContext.Provider>
                 </div>
                 <div className='text-center home text-light'>
                     <h1>Home</h1>
                 </div>
                 <div className='container-fluid'>
-                    <div id='preview'/>
+                    <div id='preview' />
                     <ProductCard items={items} />
                 </div>
             </main>

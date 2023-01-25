@@ -1,12 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
+import { StockSwitchContext } from "../pages";
 import ClientPortal from "./clientPortal";
 import StockWidget from "./stocks";
 import Widgets from "./widgets";
 
+
 export default function ViewWidgetsButton() {
     const [menuOpen, setMenuOpen] = useState(false)
-    const [stockSwitchStatus, setStockSwitchStatus] = useState(false);
+    // const [stockSwitchStatus, setStockSwitchStatus] = useState(false);
     const [weatherSwitchStatus, setWeatherSwitchStatus] = useState(false);
+
+
 
     // useEffect(() => {
 
@@ -25,8 +29,8 @@ export default function ViewWidgetsButton() {
                         <div className="row justify-content-start">
                             <div className="col-4">
                                 <StockSwitch
-                                    stockSwitchStatus={stockSwitchStatus}
-                                    setStockSwitchStatus={setStockSwitchStatus}
+                                // stockSwitchStatus={stockSwitchStatus}
+                                // setStockSwitchStatus={setStockSwitchStatus}
                                 />
                                 <WeatherSwitch
                                     weatherSwitchStatus={weatherSwitchStatus}
@@ -41,7 +45,9 @@ export default function ViewWidgetsButton() {
     )
 }
 
-function StockSwitch({ stockSwitchStatus, setStockSwitchStatus }) {
+function StockSwitch() {
+    const { stockSwitchStatus, setStockSwitchStatus } = useContext(StockSwitchContext);
+
     useEffect(() => {
         setStockSwitchStatus(JSON.parse(window.localStorage.getItem('stockSwitchStatus')));
     }, []);
