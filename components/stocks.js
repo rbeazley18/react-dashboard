@@ -1,6 +1,4 @@
 import { useEffect, useState, useContext } from "react";
-// import WidgetSwitch from "./widgetSwitch";
-import ClientPortal from "./clientPortal";
 import { StockSwitchContext } from "../pages";
 
 export default function StockWidget() {

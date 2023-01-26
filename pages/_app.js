@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
             />
             <Layout>
                 <div id='widget-menu' />
-                <div id='widget' />
+                {/* <div id='widget' /> */}
                 {/* <div id='preview'/> */}
                 <Component {...pageProps} />
             </Layout>
