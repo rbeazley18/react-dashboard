@@ -1,20 +1,19 @@
-import { useEffect, useState } from "react";
-// import WidgetSwitch from "./widgetSwitch";
-import ClientPortal from "./clientPortal";
+import { useEffect, useState, useContext } from "react";
+import { StockSwitchContext } from "../pages";
 
 export default function StockWidget() {
     const [stockData, setStockData] = useState([]);
-    const [widgetStatus, setWidgetStatus] = useState(false);
+    // const [widgetStatus, setWidgetStatus] = useState(false);
+    const { stockSwitchStatus, setStockSwitchStatus } = useContext(StockSwitchContext);
 
     useEffect(() => {
-        setWidgetStatus(JSON.parse(window.localStorage.getItem('stockSwitchStatus')));
-        console.log(widgetStatus);
+        setStockSwitchStatus(JSON.parse(window.localStorage.getItem('stockSwitchStatus')));
     }
         // eslint-disable-next-line react-hooks/exhaustive-deps
         , [])
 
     useEffect(() => {
-        console.log(widgetStatus);
+        console.log(stockSwitchStatus);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -22,13 +21,13 @@ export default function StockWidget() {
         console.log(stockData);
     }, [stockData])
 
-    if (widgetStatus) {
+    if (stockSwitchStatus) {
         return (
             <>
                 <div className="row justify-content-center">
                     <div className="card col-6 p-3 pt-1 m-3 bg-dark shadow-lg">
                         <div className="row">
-                            <button className="btn-close ms-auto btn-close-white p-0 close-button" type="button" onClick={() => setWidgetStatus(false)} aria-label="Close">
+                            <button className="btn-close ms-auto btn-close-white p-0 close-button" type="button" onClick={() => setStockSwitchStatus(false)} aria-label="Close">
                             </button>
                         </div>
                         {stockData.length > 0 ? (
