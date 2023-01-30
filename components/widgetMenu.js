@@ -4,10 +4,6 @@ import ClientPortal from "./clientPortal";
 
 export default function ViewWidgetsButton() {
     const [menuOpen, setMenuOpen] = useState(false)
-    // const [stockSwitchStatus, setStockSwitchStatus] = useState(false);
-    // const [weatherSwitchStatus, setWeatherSwitchStatus] = useState(false);
-
-
 
     // useEffect(() => {
 
@@ -25,14 +21,8 @@ export default function ViewWidgetsButton() {
                         </div>
                         <div className="row justify-content-start">
                             <div className="col-4">
-                                <StockSwitch
-                                // stockSwitchStatus={stockSwitchStatus}
-                                // setStockSwitchStatus={setStockSwitchStatus}
-                                />
-                                <WeatherSwitch
-                                    // weatherSwitchStatus={weatherSwitchStatus}
-                                    // setWeatherSwitchStatus={setWeatherSwitchStatus}
-                                />
+                                <StockSwitch />
+                                <WeatherSwitch />
                             </div>
                         </div>
                     </div>

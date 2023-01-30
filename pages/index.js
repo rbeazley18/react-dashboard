@@ -8,8 +8,8 @@ import { items } from '../fake-data/data';
 import WidgetMenu from '../components/widgetMenu';
 import dynamic from "next/dynamic";
 import ViewWidgetsButton from '../components/widgetMenu';
-import StockWidget from '../components/stocks';
-import WeatherWidget from '../components/weather';
+import StockWidget from '../components/stockWidget';
+import WeatherWidget from '../components/weatherWidget';
 import Widgets from '../components/allWidgets';
 
 export const StockSwitchContext = createContext(false);

@@ -4,7 +4,6 @@ import { WeatherSwitchContext } from "../pages";
 
 export default function WeatherWidget() {
     const [weatherData, setWeatherData] = useState([]);
-    // const [widgetStatus, setWidgetStatus] = useState(false);
     const { weatherSwitchStatus, setWeatherSwitchStatus } = useContext(WeatherSwitchContext);
 
     useEffect(() => {

@@ -54,3 +54,7 @@ body {
     background-color: var(--bs-dark);
     background-image: var(--bs-gradient);
 }
+
+.all-widgets {
+    max-width: 1200px;
+}
