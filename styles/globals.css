@@ -21,6 +21,7 @@ img {
     height: fit-content;
     background-color: var(--bs-dark);
     background-image: var(--bs-gradient);
+    white-space: nowrap;
 }
 
 .navbar-widget-btn {
@@ -57,4 +58,5 @@ body {
 
 .all-widgets {
     max-width: 1200px;
+    
 }

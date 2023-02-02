@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from "react";
-import { StockSwitchContext, WeatherSwitchContext } from "../pages";
+import { StockSwitchContext, WeatherSwitchContext, QuoteSwitchContext } from "../pages";
 import ClientPortal from "./clientPortal";
 
 export default function ViewWidgetsButton() {
@@ -23,6 +23,7 @@ export default function ViewWidgetsButton() {
                             <div className="col-4">
                                 <StockSwitch />
                                 <WeatherSwitch />
+                                <QuoteSwitch />
                             </div>
                         </div>
                     </div>
@@ -77,6 +78,31 @@ function WeatherSwitch() {
         <div className="form-check form-switch m-3">
             <input onChange={handleToggle} checked={weatherSwitchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
             <label className="form-check-label text-light" htmlFor="flexSwitchCheckDefault">Weather</label>
+        </div>
+    )
+}
+
+function QuoteSwitch() {
+    const { quoteSwitchStatus, setQuoteSwitchStatus } = useContext(QuoteSwitchContext);
+
+    useEffect(() => {
+        setQuoteSwitchStatus(JSON.parse(window.localStorage.getItem('quoteSwitchStatus')));
+    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        , []);
+
+    useEffect(() => {
+        window.localStorage.setItem('quoteSwitchStatus', quoteSwitchStatus);
+    }, [quoteSwitchStatus]);
+
+    function handleToggle() {
+        return setQuoteSwitchStatus(!quoteSwitchStatus);
+    }
+
+    return (
+        <div className="form-check form-switch m-3">
+            <input onChange={handleToggle} checked={quoteSwitchStatus} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+            <label className="form-check-label text-light" htmlFor="flexSwitchCheckDefault">Daily Quote</label>
         </div>
     )
 }

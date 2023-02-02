@@ -14,10 +14,12 @@ import Widgets from '../components/allWidgets';
 
 export const StockSwitchContext = createContext(false);
 export const WeatherSwitchContext = createContext(false);
+export const QuoteSwitchContext = createContext(false);
 
 export default function Home() {
     const [stockSwitchStatus, setStockSwitchStatus] = useState(false);
     const [weatherSwitchStatus, setWeatherSwitchStatus] = useState(false);
+    const [quoteSwitchStatus, setQuoteSwitchStatus] = useState(false);
 
     return (
         <>
@@ -29,8 +31,10 @@ export default function Home() {
                 <div className="navbar-widget-btn mx-2">
                     <StockSwitchContext.Provider value={{ stockSwitchStatus, setStockSwitchStatus }} >
                         <WeatherSwitchContext.Provider value={{ weatherSwitchStatus, setWeatherSwitchStatus }}>
-                            <ViewWidgetsButton />
-                            <Widgets />
+                            <QuoteSwitchContext.Provider value={{ quoteSwitchStatus, setQuoteSwitchStatus }}>
+                                <ViewWidgetsButton />
+                                <Widgets />
+                            </QuoteSwitchContext.Provider>
                         </WeatherSwitchContext.Provider>
                     </StockSwitchContext.Provider>
                 </div>
