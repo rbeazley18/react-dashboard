@@ -14,7 +14,13 @@ export default function WeatherWidget() {
         , [])
 
     useEffect(() => {
-        console.log(weatherSwitchStatus);
+        const serializedWeatherData = JSON.stringify(weatherData);
+        window.localStorage.setItem('weatherData', serializedWeatherData);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [weatherData])
+
+    useEffect(() => {
+        setWeatherData(JSON.parse(window.localStorage.getItem('weatherData')));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -26,8 +32,8 @@ export default function WeatherWidget() {
     if (weatherSwitchStatus) {
         return (
             <>
-                <div className="row justify-content-center">
-                    <div className="card col-6 p-3 m-3 pt-1 m-3 shadow-lg">
+                <div className="">
+                    <div className="card weather-card col-6 p-3 m-3 pt-1 m-3 shadow-lg">
                         <div className="row">
                             <button className="btn-close ms-auto btn-close-white p-0 close-button" type="button" onClick={() => setWeatherSwitchStatus(false)} aria-label="Close">
                             </button>
@@ -99,17 +105,49 @@ function WeatherSearch({ weatherData, setWeatherData }) {
 function WeatherDisplay({ weatherData, setWeatherData }) {
     let date = new Date().toLocaleDateString()
 
+    function getCardinalDirection(angle) {
+        const directions = ['↑ N', '↗ NE', '→ E', '↘ SE', '↓ S', '↙ SW', '← W', '↖ NW'];
+        return directions[Math.round(angle / 45) % 8];
+    }
+
+    // function formatDescription(description) {
+    //     const capitalized =
+    //         description.charAt(0).toUpperCase()
+    //         + description.slice(1)
+    //     const commasAdded = capitalized.replace(" ", ", ")
+    //     return commasAdded;
+    // }
+
     return (
         weatherData.map((weather) => (
             <div key={weather.id}>
                 <div className="card-header">
-                    <h1>City: {weather.name}</h1>
+                    <h1>{weather.name}, {weather.sys.country}</h1>
+                    <p className="text-muted"></p>
+
                 </div>
                 <div className="card-body">
+                    <h2 className="lead fw-bold card-text m-0">Conditions:</h2>
+                    <p className="card-text ms-3 m-0">Temp: {weather.main.temp} °F  (Feels Like: {weather.main.feels_like} °F)</p>
+                    <p className="card-text ms-3 m-0"> {weather.main.humidity}%</p>
+                    <p className="card-text ms-3 m-0">{weather.weather[0].main}</p>
 
-                    <p className="card-text">ID: {weather.id}</p>
-                    <p className="card-text">Wind: {weather.wind.speed}</p>
-                    <button onClick={() => setWeatherData([])} className="btn btn-danger">Reset Weather</button>
+                    <div className="">
+                        <h2 className="lead fw-bold mt-2 mb-0">Wind:</h2>
+                        <div className="ms-3">
+                            <p className="card-text m-0">Wind Direction: {getCardinalDirection(weather.wind.deg)} ({weather.wind.deg} degrees)</p>
+                            <p className="card-text m-0">Wind Speed: {weather.wind.speed} mph</p>
+                            {weather.wind.gust && (
+                                <>
+                                    <p className="card-text m-0">Wind Gust: {weather.wind.gust} mph</p>
+                                </>
+                            )}
+                        </div>
+
+                    </div>
+                    <div className="mt-2">
+                        <button onClick={() => setWeatherData([])} className="btn btn-sm btn-warning mx-auto">Reset</button>
+                    </div>
                 </div>
                 <div className="card-footer text-muted">
                     {date}

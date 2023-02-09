@@ -24,7 +24,7 @@ export default function StockWidget() {
     if (stockSwitchStatus) {
         return (
             <>
-                <div className="row justify-content-center">
+                <div className="">
                     <div className="card col-6 p-3 pt-1 m-3 bg-dark shadow-lg">
                         <div className="row">
                             <button className="btn-close ms-auto btn-close-white p-0 close-button" type="button" onClick={() => setStockSwitchStatus(false)} aria-label="Close">
@@ -73,7 +73,7 @@ function StockSearch({ stockData, setStockData }) {
             // Body of the request is the JSON data we created above.
             body: JSONdata,
         }
-        // Send the form data to our forms API on Vercel and get a response.
+        // Send the form data to our forms API and get a response.
         const response = await fetch(endpoint, options)
         // Get the response data from server as JSON.
         const result = await response.json()

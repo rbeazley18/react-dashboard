@@ -24,9 +24,9 @@ img {
     white-space: nowrap;
 }
 
-.navbar-widget-btn {
+/* .navbar-widget-btn {
     position: relative;
-}
+} */
 
 body {
     background-color: rgb(136, 136, 136);
@@ -56,7 +56,7 @@ body {
     background-image: var(--bs-gradient);
 }
 
-.all-widgets {
-    max-width: 1200px;
-    
+.weather-card {
+    width: fit-content;
+    white-space: nowrap;
 }

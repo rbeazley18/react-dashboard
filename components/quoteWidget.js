@@ -30,12 +30,12 @@ export default function QuoteWidget() {
                             <button className="btn-close ms-auto btn-close-white p-0 close-button" type="button" onClick={() => setQuoteSwitchStatus(false)} aria-label="Close">
                             </button>
                         </div>
-
+                        {/* {quoteData.length > 0 && ( */}
                         <QuoteDisplay
                             quoteData={quoteData}
                             setQuoteData={setQuoteData}
                         />
-
+                        {/* )} */}
                     </div>
                 </div>
 
@@ -62,53 +62,43 @@ export default function QuoteWidget() {
 // }
 
 function QuoteDisplay({ quoteData, setQuoteData }) {
+    async function fetchQuote() {
+        try {
+            const response = await fetch('https://favqs.com/api/qotd', {
+                method: 'GET',
+                // mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+            })
+            console.log(response);
+
+            const result = await response.json();
+            
+            setQuoteData(result);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    
     useEffect(() => {
-        // const endpoint = 'https://favqs.com/api/qotd'
-        // // Form the request for sending data to the server.
-        // const options = {
-        //     // The method is GET because we are requesting data.
-        //     method: 'GET',
-        //     // Tell the server we're sending JSON.
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     // Body of the request is the JSON data we created above.
-        //     // body: JSONdata,
-        // }
-        // // Send the form data to our forms API on Vercel and get a response.
-        // const response = fetch(endpoint, options)
-        // // Get the response data from server as JSON.
-        // const result = loadQuote()
-
-        // console.log(result);
-
-        // setQuoteData(quoteData => [...quoteData, result]);
         fetchQuote()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    async function fetchQuote() {
-        const response = await fetch('https://favqs.com/api/qotd', {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-                // 'Access-Control-Allow-Origin' : '*'
-            },
-        })
-        const data = await response.json()
-        setQuoteData(data);
-    }
+    
 
     let date = new Date().toLocaleDateString()
 
     return (
         <>
+            <h3 className="card-header">
+                Quote of the Day
+            </h3>
             {quoteData && quoteData.map((quote) => (
-                <div className="text-light" key={quote.quote.id}>
-                    <h3 className="card-header">
-                        Quote of the Day
-                    </h3>
+                <div className="text-light" key={quote.id}>
+
                     <div className="card-body">
                         <h5 className="card-title">{quote.body}</h5>
                         <p className="card-text">{quote.author}</p>
