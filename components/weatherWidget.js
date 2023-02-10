@@ -127,9 +127,12 @@ function WeatherDisplay({ weatherData, setWeatherData }) {
 
                 </div>
                 <div className="card-body">
+                    
+                    <h1 className="card-text m-0"><b>{weather.main.temp}°F</b>  </h1>
+                    <h2 className="mb-0">{weather.main.feels_like}°F</h2>
+                    <p className="mb-4 m-0 fw-bold">Feels Like</p>
                     <h2 className="lead fw-bold card-text m-0">Conditions:</h2>
-                    <p className="card-text ms-3 m-0">Temp: {weather.main.temp} °F  (Feels Like: {weather.main.feels_like} °F)</p>
-                    <p className="card-text ms-3 m-0"> {weather.main.humidity}%</p>
+                    <p className="card-text ms-3 m-0">Humidity: <b>{weather.main.humidity}%</b></p>
                     <p className="card-text ms-3 m-0">{weather.weather[0].main}</p>
 
                     <div className="">
