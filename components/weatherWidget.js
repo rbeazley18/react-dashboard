@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import ClientPortal from "./clientPortal";
 import { WeatherSwitchContext } from "../pages";
+import Select from "react-select";
 
 export default function WeatherWidget() {
     const [weatherData, setWeatherData] = useState([]);
@@ -91,11 +92,16 @@ function WeatherSearch({ weatherData, setWeatherData }) {
         setWeatherData(weatherData => [...weatherData, result]);
     }
 
+    const city
+    const cityList  = cityData.map(city => ({ label: city.name, value: city.name }));
+
     return (
         <div>
             <p className="lead">Search Weather</p>
             <form onSubmit={handleSubmit} className="input-group">
-                <input type="text" id="city" name="city" className="form-control" placeholder="City..." required />
+                <Select
+                    options={}
+                />
                 <button className="btn btn-primary" type="submit">Submit</button>
             </form>
         </div>
@@ -127,7 +133,7 @@ function WeatherDisplay({ weatherData, setWeatherData }) {
 
                 </div>
                 <div className="card-body">
-                    
+
                     <h1 className="card-text m-0"><b>{weather.main.temp}°F</b>  </h1>
                     <h2 className="mb-0">{weather.main.feels_like}°F</h2>
                     <p className="mb-4 m-0 fw-bold">Feels Like</p>
