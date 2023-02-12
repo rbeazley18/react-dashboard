@@ -1,4 +1,4 @@
-import loadWeather from "../../lib/openweather";
+import { loadWeather } from "../../lib/openweather"
 
 export default async function getWeatherHandler(req, res) {
     // Get data submitted in request's body.
@@ -11,11 +11,11 @@ export default async function getWeatherHandler(req, res) {
     }
   
     // Sends a HTTP success code
-    res.status(200).json({ data: `${searchedCity}` })
+    // res.status(200).json({ data: `${searchedCity}` })
 
     // Send to openweather
     const data = await loadWeather(searchedCity)
 
-    res.json(data);
+    return res.json(data);
   }
 

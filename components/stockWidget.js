@@ -104,10 +104,11 @@ function StockDisplay({ stockData, setStockData }) {
                     Your Stocks
                 </h3>
                 <div className="card-body">
-                    <h5 className="card-title">{stock["Global Quote"]["01. symbol"]}</h5>
-                    <p className="card-text"></p>
-                    <p className="card-text"></p>
-                    <button onClick={() => setStockData([])} className="btn btn-warning">Reset</button>
+                    <h5 className="card-title fw-bold">{stock["Global Quote"]["01. symbol"]}</h5>
+                    <p className="card-text m-0">Open: <b>{stock["Global Quote"]["02. open"]}</b></p>
+                    <p className="card-text m-0">High: <b>{stock["Global Quote"]["03. high"]}</b></p>
+                    <p className="card-text m-0">Low: <b>{stock["Global Quote"]["04. low"]}</b></p>
+                    <button onClick={() => setStockData([])} className="btn btn-warning my-2">Reset</button>
                 </div>
                 <div className="card-footer text-muted">
                     {date}
