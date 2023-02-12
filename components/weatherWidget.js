@@ -34,23 +34,25 @@ export default function WeatherWidget() {
     if (weatherSwitchStatus) {
         return (
             <>
-                <div className="container">
-                    <div className="card weather-card col-6 m-3 shadow-lg px-2">
-                        <div className="row justify-content-end">
-                            <button style={{position: 'absolute'}} className="btn-close btn-close-white close-button m-1 p-1" type="button" onClick={() => setWeatherSwitchStatus(false)} aria-label="Close">
+                <div className="col">
+                    <div className="card widget-card pt-1 m-3 bg-dark shadow-lg">
+                        <div className="row justify-content-end g-1">
+                            <button style={{ position: 'absolute' }} className="btn-close btn-close-white close-button m-0" type="button" onClick={() => setWeatherSwitchStatus(false)} aria-label="Close">
                             </button>
                         </div>
-                        {weatherData.length > 0 ? (
-                            <WeatherDisplay
-                                weatherData={weatherData}
-                                setWeatherData={setWeatherData}
-                            />
-                        ) : (
-                            <WeatherSearch
-                                weatherData={weatherData}
-                                setWeatherData={setWeatherData}
-                            />
-                        )}
+                        <div className="p-4">
+                            {weatherData.length > 0 ? (
+                                <WeatherDisplay
+                                    weatherData={weatherData}
+                                    setWeatherData={setWeatherData}
+                                />
+                            ) : (
+                                <WeatherSearch
+                                    weatherData={weatherData}
+                                    setWeatherData={setWeatherData}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -98,8 +100,8 @@ function WeatherSearch({ setWeatherData }) {
     // const cityList = cityData.map(city => ({ label: city.name, value: city.name }));
 
     return (
-        <div className="p-3">
-            <p className="lead">Search Weather</p>
+        <div className="">
+            <h1 className="lead p-2">Search Weather</h1>
             <form onSubmit={handleSubmit} className="input-group">
                 <input type="text" id="city" name="city" className="form-control" placeholder="City..." required />
                 <button className="btn btn-primary" type="submit">Submit</button>
@@ -126,25 +128,32 @@ function WeatherDisplay({ weatherData, setWeatherData }) {
 
     return (
         weatherData.map((weather) => (
-            <div className="p-3" key={weather.id}>
+            <div className="" key={weather.id}>
                 <div className="card-header">
                     <h1>{weather.name}, {weather.sys.country}</h1>
-                    <p className="text-muted"></p>
+                    <p className="m-0">{weather.coord.lat}, {weather.coord.lon}</p>
                 </div>
                 <div className="card-body">
-                    <h1 className="card-text m-0 display-3"><b>{weather.main.temp}°F</b></h1>
-                    <h4 className="mb-0"></h4>
-                    <p className="mb-4 m-0">Feels Like: <b>{weather.main.feels_like}°F</b></p>
-                    <h2 className="lead fw-bold card-text m-0">{weather.weather[0].main}</h2>
-                    <p className="card-text ms-3 m-0">Humidity: <b>{weather.main.humidity}%</b></p>
-                    <p className="card-text ms-3 m-0"></p>
+                    <div className="row align-items-center">
+                        <div className="col">
+                            <h1 className="card-text m-0 p-0 display-3"><b>{weather.main.temp}°F</b></h1>
+                            <p className="m-0">Feels Like: <b>{weather.main.feels_like}°F</b></p>
+                            <hr />
+                            <h1 className="card-text m-0 my-2">{weather.weather[0].main}</h1>
+                            <p className="m-0">H: <b>{weather.main.temp_max
+                            }°F</b> L: <b>{weather.main.temp_min
+                            }°F</b></p>
+                        </div>
+                    </div>
+                    <p className="card-text m-0">Humidity: <b>{weather.main.humidity}%</b></p>
+                    <p className="card-text  m-0">Pressure: <b>{weather.main.pressure} mb</b></p>
                     <div className="">
                         <h2 className="lead fw-bold mt-2 mb-0">Wind:</h2>
-                        <div className="ms-3">
-                            <p className="card-text m-0">Direction: {getCardinalDirection(weather.wind.deg)} ({weather.wind.deg} degrees)</p>
-                            <p className="card-text m-0">Speed: {weather.wind.speed} mph</p>
+                        <div className="">
+                            <p className="card-text m-0">Direction: <b>{getCardinalDirection(weather.wind.deg)} ({weather.wind.deg} degrees)</b></p>
+                            <p className="card-text m-0">Speed: <b>{weather.wind.speed} mph</b></p>
                             {weather.wind.gust && (
-                                <p className="card-text m-0">Gust: {weather.wind.gust} mph</p>
+                                <p className="card-text m-0">Gust: <b>{weather.wind.gust} mph</b></p>
                             )}
                         </div>
                     </div>

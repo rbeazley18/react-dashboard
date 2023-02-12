@@ -28,7 +28,7 @@ export default function Home() {
                 <meta name="description" content="Your shopping items." />
             </Head>
             <main>
-                <div className="navbar-widget-btn mx-2">
+                <div className="widget-components">
                     <StockSwitchContext.Provider value={{ stockSwitchStatus, setStockSwitchStatus }} >
                         <WeatherSwitchContext.Provider value={{ weatherSwitchStatus, setWeatherSwitchStatus }}>
                             <QuoteSwitchContext.Provider value={{ quoteSwitchStatus, setQuoteSwitchStatus }}>

@@ -23,28 +23,27 @@ export default function StockWidget() {
 
     if (stockSwitchStatus) {
         return (
-            <>
-                <div className="">
-                    <div className="card col-6 p-3 pt-1 m-3 bg-dark shadow-lg">
-                        <div className="row">
-                            <button className="btn-close ms-auto btn-close-white p-0 close-button" type="button" onClick={() => setStockSwitchStatus(false)} aria-label="Close">
-                            </button>
-                        </div>
-                        {stockData.length > 0 ? (
-                            <StockDisplay
-                                stockData={stockData}
-                                setStockData={setStockData}
-                            />
-                        ) : (
-                            <StockSearch
-                                stockData={stockData}
-                                setStockData={setStockData}
-                            />
-                        )}
+            <div className="col">
+                <div className="card widget-card p-3 pt-1 m-3 bg-dark shadow-lg">
+                    <div className="row justify-content-end">
+                        <button style={{ position: 'absolute' }} className="btn-close btn-close-white p-1 close-button" type="button" onClick={() => setStockSwitchStatus(false)} aria-label="Close">
+                        </button>
                     </div>
+                    {stockData.length > 0 ? (
+                        <StockDisplay
+                            stockData={stockData}
+                            setStockData={setStockData}
+                        />
+                    ) : (
+                        <StockSearch
+                            stockData={stockData}
+                            setStockData={setStockData}
+                        />
+                    )}
                 </div>
 
-            </>
+
+            </div>
         )
     }
 }
@@ -85,7 +84,7 @@ function StockSearch({ stockData, setStockData }) {
 
     return (
         <div className="text-light">
-            <p className="lead">Search Stocks</p>
+            <h1 className="lead p-2">Search Stocks</h1>
             <form onSubmit={handleSubmit} className="input-group">
                 <input type="text" id="stock" name="stock" className="form-control" placeholder="Stock..." required />
                 <button className="btn btn-primary" type="submit">Submit</button>
@@ -104,11 +103,17 @@ function StockDisplay({ stockData, setStockData }) {
                     Your Stocks
                 </h3>
                 <div className="card-body">
-                    <h5 className="card-title fw-bold">{stock["Global Quote"]["01. symbol"]}</h5>
+                    <h1 className="card-title fw-bold">{stock["Global Quote"]["01. symbol"]}</h1>
                     <p className="card-text m-0">Open: <b>{stock["Global Quote"]["02. open"]}</b></p>
                     <p className="card-text m-0">High: <b>{stock["Global Quote"]["03. high"]}</b></p>
                     <p className="card-text m-0">Low: <b>{stock["Global Quote"]["04. low"]}</b></p>
-                    <button onClick={() => setStockData([])} className="btn btn-warning my-2">Reset</button>
+                    <p className="card-text m-0">Price: <b>{stock["Global Quote"]["05. price"]}</b></p>
+                    <p className="card-text m-0">Volume: <b>{stock["Global Quote"]["06. volume"]}</b></p>
+                    <p className="card-text m-0">Latest Trading Day: <b>{stock["Global Quote"]["07. latest trading day"]}</b></p>
+                    <p className="card-text m-0">Previous Close: <b>{stock["Global Quote"]["08. previous close"]}</b></p>
+                    <p className="card-text m-0">Change: <b>{stock["Global Quote"]["09. change"]}</b></p>
+                    <p className="card-text m-0">Change Percent: <b>{stock["Global Quote"]["10. change percent"]}</b></p>
+                    <button onClick={() => setStockData([])} className="btn btn-sm btn-warning my-2">Reset</button>
                 </div>
                 <div className="card-footer text-muted">
                     {date}

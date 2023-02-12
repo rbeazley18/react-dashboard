@@ -60,7 +60,8 @@ body {
     background-image: var(--bs-gradient);
 }
 
-.weather-card {
+.widget-card {
     width: fit-content;
     white-space: nowrap;
+    /* max-width: 1000px; */
 }
