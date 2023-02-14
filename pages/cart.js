@@ -31,8 +31,6 @@ export default function Cart({ cartItems }) {
             <main>
                 <h1 className='text-center m-5'>Shopping Cart</h1>
                 <div>{allCartItems}</div>
-
-
             </main>
         </>
     );

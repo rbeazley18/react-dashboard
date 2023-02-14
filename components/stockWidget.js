@@ -3,6 +3,7 @@ import { StockSwitchContext } from "../pages";
 
 export default function StockWidget() {
     const [stockData, setStockData] = useState([]);
+    const [stockWatchlist, setStockWatchlist] = useState([]);                   
     // const [widgetStatus, setWidgetStatus] = useState(false);
     const { stockSwitchStatus, setStockSwitchStatus } = useContext(StockSwitchContext);
 
@@ -34,6 +35,8 @@ export default function StockWidget() {
                             <StockDisplay
                                 stockData={stockData}
                                 setStockData={setStockData}
+                                setStockWatchlist={setStockWatchlist}
+                                stockWatchlist={stockWatchlist}
                             />
                         ) : (
                             <StockSearch
@@ -95,8 +98,42 @@ function StockSearch({ stockData, setStockData }) {
     )
 }
 
-function StockDisplay({ stockData, setStockData }) {
+function StockDisplay({ stockData, setStockData, stockWatchlist, setStockWatchlist }) {
     let date = new Date().toLocaleDateString()
+
+    const handleSubmit = async (event) => {
+        setStockWatchlist(stockWatchlist => [...stockWatchlist, item]);
+        // Stop the form from submitting and refreshing the page.
+        event.preventDefault()
+        // Get data from the form.
+        const data = {
+            stockToAdd: stockData["Global Quote"]["01. symbol"]
+        }
+        // Send the data to the server in JSON format.
+        const JSONdata = JSON.stringify(data);
+        // console.log(JSONdata);
+        // API endpoint where we send form data.
+        const endpoint = '/api/addToWatchlistForm'
+        // Form the request for sending data to the server.
+        const options = {
+            // The method is POST because we are sending data.
+            method: 'POST',
+            // Tell the server we're sending JSON.
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Body of the request is the JSON data we created above.
+            body: JSONdata,
+        }
+        // Send the form data to our forms API on Vercel and get a response.
+        const response = await fetch(endpoint, options)
+
+        // Get the response data from server as JSON.
+        // If server returns the name submitted, that means the form works.
+        const result = await response.json()
+        // alert(`Your item: ${JSON.stringify(result.data)}`);
+        // console.log(`Result: ${result}`);
+    }
 
     return (
         stockData.map((stock) => (

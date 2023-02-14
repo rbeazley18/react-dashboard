@@ -87,18 +87,15 @@ function AddToCartButton({ cart, setCart, item }) {
         setCart(cart => [...cart, item]);
         // Stop the form from submitting and refreshing the page.
         event.preventDefault()
-
         // Get data from the form.
         const data = {
             itemToAdd: item
         }
-
         // Send the data to the server in JSON format.
         const JSONdata = JSON.stringify(data);
         // console.log(JSONdata);
         // API endpoint where we send form data.
         const endpoint = '/api/addToCartForm'
-
         // Form the request for sending data to the server.
         const options = {
             // The method is POST because we are sending data.
@@ -110,7 +107,6 @@ function AddToCartButton({ cart, setCart, item }) {
             // Body of the request is the JSON data we created above.
             body: JSONdata,
         }
-
         // Send the form data to our forms API on Vercel and get a response.
         const response = await fetch(endpoint, options)
 
