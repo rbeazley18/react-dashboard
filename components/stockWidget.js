@@ -24,22 +24,24 @@ export default function StockWidget() {
     if (stockSwitchStatus) {
         return (
             <div className="col">
-                <div className="card widget-card p-3 pt-1 m-3 bg-dark shadow-lg">
-                    <div className="row justify-content-end">
-                        <button style={{ position: 'absolute' }} className="btn-close btn-close-white p-1 close-button" type="button" onClick={() => setStockSwitchStatus(false)} aria-label="Close">
+                <div className="card widget-card pt-1 m-3 bg-dark shadow-lg">
+                    <div className="row justify-content-end g-1">
+                        <button style={{ position: 'absolute' }} className="btn-close btn-close-white close-button m-0" type="button" onClick={() => setStockSwitchStatus(false)} aria-label="Close">
                         </button>
                     </div>
-                    {stockData.length > 0 ? (
-                        <StockDisplay
-                            stockData={stockData}
-                            setStockData={setStockData}
-                        />
-                    ) : (
-                        <StockSearch
-                            stockData={stockData}
-                            setStockData={setStockData}
-                        />
-                    )}
+                    <div className="p-4">
+                        {stockData.length > 0 ? (
+                            <StockDisplay
+                                stockData={stockData}
+                                setStockData={setStockData}
+                            />
+                        ) : (
+                            <StockSearch
+                                stockData={stockData}
+                                setStockData={setStockData}
+                            />
+                        )}
+                    </div>
                 </div>
 
 

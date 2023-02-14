@@ -141,7 +141,7 @@ function WeatherDisplay({ weatherData, setWeatherData }) {
                             <hr />
                             <h1 className="card-text m-0 my-2">{weather.weather[0].main}</h1>
                             <p className="m-0">H: <b>{weather.main.temp_max
-                            }°F</b> L: <b>{weather.main.temp_min
+                            }°F</b> | L: <b>{weather.main.temp_min
                             }°F</b></p>
                         </div>
                     </div>
