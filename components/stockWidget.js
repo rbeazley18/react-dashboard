@@ -101,13 +101,17 @@ function StockSearch({ stockData, setStockData }) {
 function StockDisplay({ stockData, setStockData, stockWatchlist, setStockWatchlist }) {
     let date = new Date().toLocaleDateString()
 
+    useEffect(() => {
+        console.log(stockWatchlist);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [stockWatchlist])
+
     const handleSubmit = async (event) => {
-        setStockWatchlist(stockWatchlist => [...stockWatchlist, item]);
         // Stop the form from submitting and refreshing the page.
         event.preventDefault()
         // Get data from the form.
         const data = {
-            stockToAdd: stockData["Global Quote"]["01. symbol"]
+            stockName: event.target.name
         }
         // Send the data to the server in JSON format.
         const JSONdata = JSON.stringify(data);
@@ -131,7 +135,9 @@ function StockDisplay({ stockData, setStockData, stockWatchlist, setStockWatchli
         // Get the response data from server as JSON.
         // If server returns the name submitted, that means the form works.
         const result = await response.json()
-        // alert(`Your item: ${JSON.stringify(result.data)}`);
+        
+        setStockWatchlist(stockWatchlist => [...stockWatchlist, result.data]);
+        // alert(`Stock added: ${JSON.stringify(result.data)}`);
         // console.log(`Result: ${result}`);
     }
 
@@ -152,7 +158,8 @@ function StockDisplay({ stockData, setStockData, stockWatchlist, setStockWatchli
                     <p className="card-text m-0">Previous Close: <b>{stock["Global Quote"]["08. previous close"]}</b></p>
                     <p className="card-text m-0">Change: <b>{stock["Global Quote"]["09. change"]}</b></p>
                     <p className="card-text m-0">Change Percent: <b>{stock["Global Quote"]["10. change percent"]}</b></p>
-                    <button onClick={() => setStockData([])} className="btn btn-sm btn-warning my-2">Reset</button>
+                    <button onClick={() => setStockData([])} className="btn btn-sm btn-warning me-2">Reset</button>
+                    <button onClick={handleSubmit} className="btn btn-sm btn-success my-2" name={stock["Global Quote"]["01. symbol"]}>Add to Watchlist</button>
                 </div>
                 <div className="card-footer text-muted">
                     {date}
