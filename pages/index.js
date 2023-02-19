@@ -15,11 +15,13 @@ import Widgets from '../components/allWidgets';
 export const StockSwitchContext = createContext(false);
 export const WeatherSwitchContext = createContext(false);
 export const QuoteSwitchContext = createContext(false);
+export const NewsSwitchContext = createContext(false);
 
 export default function Home() {
     const [stockSwitchStatus, setStockSwitchStatus] = useState(false);
     const [weatherSwitchStatus, setWeatherSwitchStatus] = useState(false);
     const [quoteSwitchStatus, setQuoteSwitchStatus] = useState(false);
+    const [newsSwitchStatus, setNewsSwitchStatus] = useState(false);
 
     return (
         <>
@@ -32,8 +34,10 @@ export default function Home() {
                     <StockSwitchContext.Provider value={{ stockSwitchStatus, setStockSwitchStatus }} >
                         <WeatherSwitchContext.Provider value={{ weatherSwitchStatus, setWeatherSwitchStatus }}>
                             <QuoteSwitchContext.Provider value={{ quoteSwitchStatus, setQuoteSwitchStatus }}>
-                                <ViewWidgetsButton />
-                                <Widgets />
+                                <NewsSwitchContext.Provider value={{ newsSwitchStatus, setNewsSwitchStatus }}>
+                                    <ViewWidgetsButton />
+                                    <Widgets />
+                                </NewsSwitchContext.Provider>
                             </QuoteSwitchContext.Provider>
                         </WeatherSwitchContext.Provider>
                     </StockSwitchContext.Provider>

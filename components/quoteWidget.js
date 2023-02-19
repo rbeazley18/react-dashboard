@@ -66,10 +66,11 @@ function QuoteDisplay({ quoteData, setQuoteData }) {
         try {
             const response = await fetch('https://favqs.com/api/qotd', {
                 method: 'GET',
-                // mode: 'no-cors',
+                mode: 'cors',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Access-Control-Request-Method': 'GET',
+                    'Access-Control-Request-Headers': 'origin',
+                    'Origin': 'http://localhost:3000/',
                 },
             })
             console.log(response);

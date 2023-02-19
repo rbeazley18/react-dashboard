@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import ClientPortal from "./clientPortal";
 import { WeatherSwitchContext } from "../pages";
-import Select from "react-select";
-import { loadCity } from "../lib/openweather";
+// import Select from "react-select";
+// import { loadCity } from "../lib/openweather";
 
 export default function WeatherWidget() {
     const [weatherData, setWeatherData] = useState([]);
