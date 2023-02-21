@@ -35,7 +35,9 @@ export default function Home() {
                         <WeatherSwitchContext.Provider value={{ weatherSwitchStatus, setWeatherSwitchStatus }}>
                             <QuoteSwitchContext.Provider value={{ quoteSwitchStatus, setQuoteSwitchStatus }}>
                                 <NewsSwitchContext.Provider value={{ newsSwitchStatus, setNewsSwitchStatus }}>
-                                    <ViewWidgetsButton />
+                                    <div className='ms-2'>
+                                        <ViewWidgetsButton />
+                                    </div>
                                     <Widgets />
                                 </NewsSwitchContext.Provider>
                             </QuoteSwitchContext.Provider>

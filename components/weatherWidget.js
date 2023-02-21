@@ -95,10 +95,6 @@ function WeatherSearch({ setWeatherData }) {
         setWeatherData(weatherData => [...weatherData, result]);
     }
 
-    // const search = 'charlotte'
-    // const cityData = loadCity(search)
-    // const cityList = cityData.map(city => ({ label: city.name, value: city.name }));
-
     return (
         <div className="">
             <h1 className="lead p-2">Search Weather</h1>
