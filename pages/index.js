@@ -15,11 +15,13 @@ import Widgets from '../components/allWidgets';
 export const StockSwitchContext = createContext(false);
 export const WeatherSwitchContext = createContext(false);
 export const QuoteSwitchContext = createContext(false);
+export const NewsSwitchContext = createContext(false);
 
 export default function Home() {
     const [stockSwitchStatus, setStockSwitchStatus] = useState(false);
     const [weatherSwitchStatus, setWeatherSwitchStatus] = useState(false);
     const [quoteSwitchStatus, setQuoteSwitchStatus] = useState(false);
+    const [newsSwitchStatus, setNewsSwitchStatus] = useState(false);
 
     return (
         <>
@@ -32,8 +34,12 @@ export default function Home() {
                     <StockSwitchContext.Provider value={{ stockSwitchStatus, setStockSwitchStatus }} >
                         <WeatherSwitchContext.Provider value={{ weatherSwitchStatus, setWeatherSwitchStatus }}>
                             <QuoteSwitchContext.Provider value={{ quoteSwitchStatus, setQuoteSwitchStatus }}>
-                                <ViewWidgetsButton />
-                                <Widgets />
+                                <NewsSwitchContext.Provider value={{ newsSwitchStatus, setNewsSwitchStatus }}>
+                                    <div className='ms-2'>
+                                        <ViewWidgetsButton />
+                                    </div>
+                                    <Widgets />
+                                </NewsSwitchContext.Provider>
                             </QuoteSwitchContext.Provider>
                         </WeatherSwitchContext.Provider>
                     </StockSwitchContext.Provider>
@@ -87,18 +93,15 @@ function AddToCartButton({ cart, setCart, item }) {
         setCart(cart => [...cart, item]);
         // Stop the form from submitting and refreshing the page.
         event.preventDefault()
-
         // Get data from the form.
         const data = {
             itemToAdd: item
         }
-
         // Send the data to the server in JSON format.
         const JSONdata = JSON.stringify(data);
         // console.log(JSONdata);
         // API endpoint where we send form data.
         const endpoint = '/api/addToCartForm'
-
         // Form the request for sending data to the server.
         const options = {
             // The method is POST because we are sending data.
@@ -110,7 +113,6 @@ function AddToCartButton({ cart, setCart, item }) {
             // Body of the request is the JSON data we created above.
             body: JSONdata,
         }
-
         // Send the form data to our forms API on Vercel and get a response.
         const response = await fetch(endpoint, options)
 

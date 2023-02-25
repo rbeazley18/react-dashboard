@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import ClientPortal from "./clientPortal";
 import { WeatherSwitchContext } from "../pages";
-import Select from "react-select";
-import { loadCity } from "../lib/openweather";
+// import Select from "react-select";
+// import { loadCity } from "../lib/openweather";
 
 export default function WeatherWidget() {
     const [weatherData, setWeatherData] = useState([]);
@@ -95,10 +95,6 @@ function WeatherSearch({ setWeatherData }) {
         setWeatherData(weatherData => [...weatherData, result]);
     }
 
-    // const search = 'charlotte'
-    // const cityData = loadCity(search)
-    // const cityList = cityData.map(city => ({ label: city.name, value: city.name }));
-
     return (
         <div className="">
             <h1 className="lead p-2">Search Weather</h1>
@@ -138,8 +134,8 @@ function WeatherDisplay({ weatherData, setWeatherData }) {
                         <div className="col">
                             <h1 className="card-text m-0 p-0 display-3"><b>{weather.main.temp}°F</b></h1>
                             <p className="m-0">Feels Like: <b>{weather.main.feels_like}°F</b></p>
-                            <hr />
                             <h1 className="card-text m-0 my-2">{weather.weather[0].main}</h1>
+                            <hr />
                             <p className="m-0">H: <b>{weather.main.temp_max
                             }°F</b> | L: <b>{weather.main.temp_min
                             }°F</b></p>
