@@ -90,7 +90,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
     }, [newsSwitchStatus])
 
     useEffect(() => {
-
+        setShowMore(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
