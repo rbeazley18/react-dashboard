@@ -1,8 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { NewsSwitchContext } from "../pages";
+import Link from "next/link";
 
 export default function NewsWidget() {
     const [newsData, setNewsData] = useState([]);
+    const [showMore, setShowMore] = useState([]);
+
     const { newsSwitchStatus, setNewsSwitchStatus } = useContext(NewsSwitchContext);
 
     let date = new Date().toLocaleDateString()
@@ -22,21 +25,30 @@ export default function NewsWidget() {
         console.log(newsData);
     }, [newsData])
 
+
+
     if (newsSwitchStatus) {
         return (
             <>
                 <div className="row justify-content-center">
-                    <div className="card col-6 p-3 pt-1 m-3 bg-dark shadow-lg">
+                    <div className="card col-10 p-3 pt-1 m-3 bg-dark shadow-lg">
                         <div className="row">
                             <button className="btn-close ms-auto btn-close-white p-0 close-button" type="button" onClick={() => setNewsSwitchStatus(false)} aria-label="Close">
                             </button>
                         </div>
-                        <h3 className="card-header">News</h3>
+                        <h1 className="card-header">News</h1>
                         <NewsDisplay
                             newsData={newsData}
                             setNewsData={setNewsData}
                             newsSwitchStatus={newsSwitchStatus}
+                            showMore={showMore}
+                            setShowMore={setShowMore}
                         />
+                        {!showMore ? (
+                            <button onClick={() => setShowMore(true)} className="btn btn-warning">Show More</button>
+                        ) : (
+                            <button onClick={() => setShowMore(false)} className="btn btn-warning">Hide</button>
+                        )}
                         <div className="card-footer text-muted">{date}</div>
                     </div>
                 </div>
@@ -46,12 +58,14 @@ export default function NewsWidget() {
     }
 }
 
-function NewsDisplay({ newsData, setNewsData, newsSwitchStatus }) {
+function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, showMore }) {
+
+
     const key = process.env.NEXT_PUBLIC_NEWS_API_KEY
 
     async function fetchNews() {
         try {
-            const response = await fetch(`https://newsapi.org/v2/everything?q=bitcoin&apiKey=${key}`, {
+            const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${key}`, {
                 method: 'GET',
                 // mode: 'cors',
                 headers: {
@@ -64,7 +78,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus }) {
 
             const result = await response.json();
 
-            setNewsData(newsData => [...newsData, result]);
+            setNewsData([result]);
         } catch (err) {
             console.log(err);
         }
@@ -80,41 +94,49 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const tenArticles = newsData.map(news => (
+        <>
+            {news.articles.map((article, i) =>
+                i < 5 ?
+                    (<div className="text-light m-0" key={article.url}>
+                        <div className="card-body">
+                            <h2 style={{ fontSize: '24px' }}><a className="text-decoration-none link-success" data-bs-toggle="tooltip" title={article.url} href={article.url}>{article.title}</a></h2>
+                            <p className="card-text m-0">{article.author}</p>
+                            <p className="card-text text-muted">{article.source.name}</p>
+                            <p className="card-text">{article.description}</p>
+                            <p className="card-text">{article.content}</p>
+                            {/* <button onClick={() => setShowMore(true)} className="btn btn-warning">Show More</button> */}
+                            <hr />
+                        </div>
+                    </div>) : null)
+            }
+        </>
+    ))
 
-
-
-
-    // function tenArticles(data) {
-    //     let values = [];
-    //     for (let i = 0; i < 10; i++) {
-    //         let newsArticles = data.articles[i];
-    //         values.push(newsArticles);
-    //     }
-    //     return values;
-    // }
-
-
-
-
+    const allArticles = newsData.map(news => (
+        <>
+            {news.articles.map((article) =>
+            (<div className="text-light m-0" key={article.url}>
+                <div className="card-body">
+                    <h2 style={{ fontSize: '24px' }}><a className="text-decoration-none link-success" data-bs-toggle="tooltip" title={article.url} href={article.url}>{article.title}</a></h2>
+                    <p className="card-text m-0">{article.author}</p>
+                    <p className="card-text text-muted">{article.source.name}</p>
+                    <p className="card-text">{article.description}</p>
+                    <p className="card-text">{article.content}</p>
+                    {/* <button onClick={() => setShowMore(false)} className="btn btn-warning">Hide</button> */}
+                    <hr />
+                </div>
+            </div>)
+            )}
+        </>
+    ))
 
     return (
-        <>
-            {newsData.length > 0 && newsData.map((news, i) => (
-                i < 5 ?
-                    (<div className="text-light" key={i}>
-                        <div className="card-body">
-                            <h5 className="card-title">{news.articles[i].title}</h5>
-                            <p className="lead">(Key: {i})</p>
-                            <p className="card-text">{news.articles[i].author}</p>
-                            <p className="card-text">{news.articles[i].description}</p>
-                            <hr />
-                            {/* <h5 className="card-title">{news.articles[1].title} (Key: {i})</h5>
-                    <p className="card-text">{news.articles[1].author}</p>
-                    <p className="card-text">{news.articles[1].description}</p> */}
-                            {/* <button onClick={() => setNewsData([])} className="btn btn-warning">Reset</button> */}
-                        </div>
-                    </div>) : null
-            ))}
-        </>
+        !showMore ?
+            (
+                <div>{tenArticles}</div>
+            ) : (
+                <div>{allArticles}</div>
+            )
     )
 }
