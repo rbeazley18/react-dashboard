@@ -160,6 +160,6 @@ function PreviewButton({ item }) {
     }
 
     return (
-        <button onClick={() => setPreview(true)} className="btn btn-warning text-light" name="hideBtn">Preview</button>
+        <button onClick={() => setPreview(true)} className="btn btn-warning text-light mb-2" name="hideBtn">Preview</button>
     )
 }
