@@ -61,7 +61,7 @@ body {
 }
 
 .widget-card {
-    width: fit-content;
+    /* width: fit-content; */
     white-space: nowrap;
     /* max-width: 1000px; */
 }

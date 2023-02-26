@@ -3,7 +3,7 @@ import { StockSwitchContext } from "../pages";
 
 export default function StockWidget() {
     const [stockData, setStockData] = useState([]);
-    const [stockWatchlist, setStockWatchlist] = useState([]);                   
+    const [stockWatchlist, setStockWatchlist] = useState([]);
     // const [widgetStatus, setWidgetStatus] = useState(false);
     const { stockSwitchStatus, setStockSwitchStatus } = useContext(StockSwitchContext);
 
@@ -24,29 +24,28 @@ export default function StockWidget() {
 
     if (stockSwitchStatus) {
         return (
-            <div className="col">
-                <div className="card widget-card pt-1 m-3 bg-dark shadow-lg">
+            <div className="row justify-content-center">
+                <div className="card col-10 widget-card mx-auto pt-1 m-3 bg-dark shadow-lg border">
                     <div className="row justify-content-end g-1">
-                        <button style={{ position: 'absolute' }} className="btn-close btn-close-white close-button m-0" type="button" onClick={() => setStockSwitchStatus(false)} aria-label="Close">
+                        <button style={{ position: 'absolute' }} className="btn-close btn-close-white close-button ms-auto" type="button" onClick={() => setStockSwitchStatus(false)} aria-label="Close">
                         </button>
-                    </div>
-                    <div className="p-4">
-                        {stockData.length > 0 ? (
-                            <StockDisplay
-                                stockData={stockData}
-                                setStockData={setStockData}
-                                setStockWatchlist={setStockWatchlist}
-                                stockWatchlist={stockWatchlist}
-                            />
-                        ) : (
-                            <StockSearch
-                                stockData={stockData}
-                                setStockData={setStockData}
-                            />
-                        )}
+                        <div className="p-4">
+                            {stockData.length > 0 ? (
+                                <StockDisplay
+                                    stockData={stockData}
+                                    setStockData={setStockData}
+                                    setStockWatchlist={setStockWatchlist}
+                                    stockWatchlist={stockWatchlist}
+                                />
+                            ) : (
+                                <StockSearch
+                                    stockData={stockData}
+                                    setStockData={setStockData}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
-
 
             </div>
         )
@@ -135,7 +134,7 @@ function StockDisplay({ stockData, setStockData, stockWatchlist, setStockWatchli
         // Get the response data from server as JSON.
         // If server returns the name submitted, that means the form works.
         const result = await response.json()
-        
+
         setStockWatchlist(stockWatchlist => [...stockWatchlist, result.data]);
         // alert(`Stock added: ${JSON.stringify(result.data)}`);
         // console.log(`Result: ${result}`);

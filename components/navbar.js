@@ -16,12 +16,8 @@ export default function Navbar() {
                 <div className="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
                     <div className="navbar-nav fw-bold">
                         <Link className="nav-link active" aria-current="page" href={'/'}>Home</Link>
-                        <Link className="nav-link" href={'/cart'}>Cart</Link>
                         <a className="nav-link" href="#">Pricing</a>
                         <a className="nav-link disabled">Disabled</a>
-                    </div>
-                    <div className="navbar-nav">
-                        <ViewCartButton />
                     </div>
                 </div>
             </div>
@@ -29,17 +25,4 @@ export default function Navbar() {
     );
 }
 
-
-export function ViewCartButton() {
-    // const [count, setCount] = useState(0);
-
-    // function handleClick() {
-    //     setCount(count + 1);
-    //   }
-    return (
-        <Link href={'/cart'} passHref>
-            <button className="btn btn-primary fw-bold">View Cart</button>
-        </Link>
-    )
-}
 
