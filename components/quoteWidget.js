@@ -21,25 +21,22 @@ export default function QuoteWidget() {
         console.log(quoteData);
     }, [quoteData])
 
-    if (quoteSwitchStatus) {
+    if (quoteSwitchStatus && quoteData.length > 0) {
         return (
-            <>
-                <div className="row justify-content-center">
-                    <div className="card col-6 p-3 pt-1 m-3 bg-dark shadow-lg">
+            <div className="col-6 border ms-auto">
+                <div className="row justify-content-center h-100">
+                    <div className="card col-6 text-center widget-card mx-auto bg-dark shadow-lg border">
                         <div className="row">
                             <button className="btn-close ms-auto btn-close-white p-0 close-button" type="button" onClick={() => setQuoteSwitchStatus(false)} aria-label="Close">
                             </button>
                         </div>
-                        {/* {quoteData.length > 0 && ( */}
                         <QuoteDisplay
                             quoteData={quoteData}
                             setQuoteData={setQuoteData}
                         />
-                        {/* )} */}
                     </div>
                 </div>
-
-            </>
+            </div>
         )
     }
 }
@@ -76,19 +73,19 @@ function QuoteDisplay({ quoteData, setQuoteData }) {
             console.log(response);
 
             const result = await response.json();
-            
+
             setQuoteData(result);
         } catch (err) {
             console.log(err);
         }
     }
-    
+
     useEffect(() => {
         fetchQuote()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    
+
 
     let date = new Date().toLocaleDateString()
 

@@ -33,10 +33,10 @@ export default function WeatherWidget() {
 
     if (weatherSwitchStatus) {
         return (
-            <>
-                <div className="row justify-content-center">
-                    <div className="card col-10 widget-card mx-auto pt-1 m-3 bg-dark shadow-lg border">
-                        <div className="row justify-content-end g-1">
+            <div className="col-12 col-sm-10 col-md-6 p-0">
+                <div className="row justify-content-center m-2">
+                    <div className="card m-0 widget-card mx-auto bg-dark w-100 shadow-lg border">
+                        <div className="row justify-content-end">
                             <button style={{ position: 'absolute' }} className="btn-close btn-close-white close-button m-0" type="button" onClick={() => setWeatherSwitchStatus(false)} aria-label="Close">
                             </button>
                         </div>
@@ -55,7 +55,7 @@ export default function WeatherWidget() {
                         </div>
                     </div>
                 </div>
-            </>
+            </div>
         )
     }
 }

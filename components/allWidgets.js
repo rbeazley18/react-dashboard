@@ -7,9 +7,11 @@ import NewsWidget from "./newsWidget";
 export default function Widgets() {
     return (
         <div className="all-widgets container-fluid">
-            <WeatherWidget />
-            <StockWidget />
             <QuoteWidget />
+            <div className="row justify-content-evenly m-2 g-3">
+                <WeatherWidget />
+                <StockWidget />
+            </div>
             <NewsWidget />
         </div>
     )

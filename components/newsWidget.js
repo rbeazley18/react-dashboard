@@ -29,11 +29,11 @@ export default function NewsWidget() {
 
     if (newsSwitchStatus) {
         return (
-            <>
+            <div className="col-11 mx-auto">
                 <div className="row justify-content-center">
-                    <div className="card col-10 p-3 pt-1 m-3 bg-dark shadow-lg">
-                        <div className="row">
-                            <button className="btn-close ms-auto btn-close-white p-0 close-button" type="button" onClick={() => setNewsSwitchStatus(false)} aria-label="Close">
+                    <div className="card p-3 pt-1 m-3 bg-dark shadow-lg border">
+                        <div className="row justify-content-end">
+                            <button style={{ position: 'absolute' }} className="btn-close btn-close-white close-button ms-auto" type="button" onClick={() => setNewsSwitchStatus(false)} aria-label="Close">
                             </button>
                         </div>
                         <h1 className="card-header">News</h1>
@@ -44,16 +44,18 @@ export default function NewsWidget() {
                             showMore={showMore}
                             setShowMore={setShowMore}
                         />
-                        {!showMore ? (
-                            <button onClick={() => setShowMore(true)} className="btn btn-warning">Show More</button>
-                        ) : (
-                            <button onClick={() => setShowMore(false)} className="btn btn-warning">Hide</button>
-                        )}
+                        <div className="p-2">
+                            {!showMore ? (
+                                <button onClick={() => setShowMore(true)} className="btn btn-warning">Show More</button>
+                            ) : (
+                                <button onClick={() => setShowMore(false)} className="btn btn-warning">Hide</button>
+                            )}
+                        </div>
                         <div className="card-footer text-muted">{date}</div>
                     </div>
                 </div>
 
-            </>
+            </div>
         )
     }
 }
