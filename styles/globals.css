@@ -37,19 +37,6 @@ body {
     /* color: black; */
 }
 
-.product-card {
-    max-width: 1000px;
-    /* z-index: -1; */
-}
-
-.itemPreview {
-    /* position: absolute; */
-    z-index: 1;
-    /* align-self: center; */
-    /* height: auto;
-    width: auto; */
-    /* margin: auto; */
-}
 
 /* .widget {
     background: gray;
@@ -62,6 +49,6 @@ body {
 
 .widget-card {
     width: fit-content;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     /* max-width: 1000px; */
 }
