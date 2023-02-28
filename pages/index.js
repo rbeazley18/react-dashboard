@@ -1,15 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
-// import styles from '../styles/Home.module.css'
-import Link from 'next/link';
 import { useState, useEffect, createContext } from 'react';
-import { createPortal } from 'react-dom';
-import { items } from '../fake-data/data';
-import WidgetMenu from '../components/widgetMenu';
-import dynamic from "next/dynamic";
 import ViewWidgetsButton from '../components/widgetMenu';
-import StockWidget from '../components/stockWidget';
-import WeatherWidget from '../components/weatherWidget';
 import Widgets from '../components/allWidgets';
 
 export const StockSwitchContext = createContext(false);
