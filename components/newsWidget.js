@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { NewsSwitchContext } from "../pages";
 import Link from "next/link";
+import fetchNews from "../lib/news";
 
 export default function NewsWidget() {
     const [newsData, setNewsData] = useState([]);
@@ -26,36 +27,38 @@ export default function NewsWidget() {
     }, [newsData])
 
     const handleSubmit = async (event) => {
-    //     // Stop the form from submitting and refreshing the page.
+        //     // Stop the form from submitting and refreshing the page.
         event.preventDefault()
-    //     // Get data from the form.
-    //     const data = {
-    //         category: item
-    //     }
-    //     // Send the data to the server in JSON format.
-    //     const JSONdata = JSON.stringify(data);
-    //     // console.log(JSONdata);
-    //     // API endpoint where we send form data.
-    //     const endpoint = '/api/addToCartForm'
-    //     // Form the request for sending data to the server.
-    //     const options = {
-    //         // The method is POST because we are sending data.
-    //         method: 'POST',
-    //         // Tell the server we're sending JSON.
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         // Body of the request is the JSON data we created above.
-    //         body: JSONdata,
-    //     }
-    //     // Send the form data to our forms API on Vercel and get a response.
-    //     const response = await fetch(endpoint, options)
+        //     // Get data from the form.
+        const data = {
+            category: event.target.name.value
+        }
+        // Send the data to the server in JSON format.
+        const JSONdata = JSON.stringify(data);
+        // console.log(JSONdata);
+        // API endpoint where we send form data.
+        const endpoint = '/api/newsForm'
+        // Form the request for sending data to the server.
+        const options = {
+            // The method is POST because we are sending data.
+            method: 'POST',
+            // Tell the server we're sending JSON.
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Body of the request is the JSON data we created above.
+            body: JSONdata,
+        }
+            // Send the form data to our forms API on Vercel and get a response.
+            const response = await fetch(endpoint, options)
 
-    //     // Get the response data from server as JSON.
-    //     // If server returns the name submitted, that means the form works.
-    //     const result = await response.json()
-    //     // alert(`Your item: ${JSON.stringify(result.data)}`);
-    //     // console.log(`Result: ${result}`);
+            // Get the response data from server as JSON.
+            // If server returns the name submitted, that means the form works.
+            const result = await response.json()
+            // alert(`Your item: ${JSON.stringify(result.data)}`);
+            // console.log(`Result: ${result}`);
+
+            setNewsData([result]);
     }
 
     if (newsSwitchStatus) {
@@ -125,29 +128,62 @@ export default function NewsWidget() {
 
 function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, showMore }) {
 
+    const renderNews = async (event) => {
+        //     // Stop the form from submitting and refreshing the page.
+        event.preventDefault()
+        //     // Get data from the form.
+        const data = {
+            category: event.target.name.value
+        }
+        // Send the data to the server in JSON format.
+        const JSONdata = JSON.stringify(data);
+        // console.log(JSONdata);
+        // API endpoint where we send form data.
+        const endpoint = '/api/newsForm'
+        // Form the request for sending data to the server.
+        const options = {
+            // The method is POST because we are sending data.
+            method: 'POST',
+            // Tell the server we're sending JSON.
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Body of the request is the JSON data we created above.
+            body: JSONdata,
+        }
+            // Send the form data to our forms API on Vercel and get a response.
+            const response = await fetch(endpoint, options)
 
-    const key = process.env.NEXT_PUBLIC_NEWS_API_KEY
-
-    async function fetchNews() {
-        try {
-            const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${key}`, {
-                method: 'GET',
-                // mode: 'cors',
-                headers: {
-                    'Access-Control-Request-Method': 'GET',
-                    'Access-Control-Request-Headers': 'origin',
-                    'Origin': 'http://localhost:3000/',
-                },
-            })
-            console.log(response);
-
-            const result = await response.json();
+            // Get the response data from server as JSON.
+            // If server returns the name submitted, that means the form works.
+            const result = await response.json()
+            // alert(`Your item: ${JSON.stringify(result.data)}`);
+            console.log(`Result: ${result}`);
 
             setNewsData([result]);
-        } catch (err) {
-            console.log(err);
-        }
     }
+    // const key = process.env.NEXT_PUBLIC_NEWS_API_KEY
+
+    // async function fetchNews() {
+    //     try {
+    //         const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${key}`, {
+    //             method: 'GET',
+    //             // mode: 'cors',
+    //             headers: {
+    //                 'Access-Control-Request-Method': 'GET',
+    //                 'Access-Control-Request-Headers': 'origin',
+    //                 'Origin': 'http://localhost:3000/',
+    //             },
+    //         })
+    //         console.log(response);
+
+    //         const result = await response.json();
+
+    //         setNewsData([result]);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
 
     useEffect(() => {
         fetchNews()
