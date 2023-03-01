@@ -25,7 +25,38 @@ export default function NewsWidget() {
         console.log(newsData);
     }, [newsData])
 
+    const handleSubmit = async (event) => {
+        // Stop the form from submitting and refreshing the page.
+        event.preventDefault()
+        // Get data from the form.
+        const data = {
+            category: item
+        }
+        // Send the data to the server in JSON format.
+        const JSONdata = JSON.stringify(data);
+        // console.log(JSONdata);
+        // API endpoint where we send form data.
+        const endpoint = '/api/addToCartForm'
+        // Form the request for sending data to the server.
+        const options = {
+            // The method is POST because we are sending data.
+            method: 'POST',
+            // Tell the server we're sending JSON.
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Body of the request is the JSON data we created above.
+            body: JSONdata,
+        }
+        // Send the form data to our forms API on Vercel and get a response.
+        const response = await fetch(endpoint, options)
 
+        // Get the response data from server as JSON.
+        // If server returns the name submitted, that means the form works.
+        const result = await response.json()
+        // alert(`Your item: ${JSON.stringify(result.data)}`);
+        // console.log(`Result: ${result}`);
+    }
 
     if (newsSwitchStatus) {
         return (
@@ -36,7 +67,39 @@ export default function NewsWidget() {
                             <button style={{ position: 'absolute' }} className="btn-close btn-close-white close-button ms-auto" type="button" onClick={() => setNewsSwitchStatus(false)} aria-label="Close">
                             </button>
                         </div>
-                        <h1 className="card-header">News</h1>
+                        <h1 className="card-header border border-secondary m-3 rounded">News</h1>
+                        <nav className="navbar navbar-expand-lg navbar-dark text-light">
+                            <div className="container-fluid">
+                                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span className="navbar-toggler-icon"></span>
+                                </button>
+                                <div className="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+                                    <div className="navbar-nav">
+                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="business">
+                                            Business
+                                        </button>
+                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="technology">
+                                            Technology
+                                        </button>
+                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="sports">
+                                            Sports
+                                        </button>
+                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="entertainment">
+                                            Entertainment
+                                        </button>
+                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="general">
+                                            General
+                                        </button>
+                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="health">
+                                            Health
+                                        </button>
+                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="science">
+                                            Science
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
                         <NewsDisplay
                             newsData={newsData}
                             setNewsData={setNewsData}
