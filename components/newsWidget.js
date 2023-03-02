@@ -1,11 +1,12 @@
 import { useEffect, useState, useContext } from "react";
 import { NewsSwitchContext } from "../pages";
 import Link from "next/link";
-import fetchNews from "../lib/news";
+// import fetchNews from "../lib/news";
 
 export default function NewsWidget() {
     const [newsData, setNewsData] = useState([]);
     const [showMore, setShowMore] = useState([]);
+    const [btnValue, setBtnValue] = useState([]);
 
     const { newsSwitchStatus, setNewsSwitchStatus } = useContext(NewsSwitchContext);
 
@@ -26,40 +27,40 @@ export default function NewsWidget() {
         console.log(newsData);
     }, [newsData])
 
-    const handleSubmit = async (event) => {
-        //     // Stop the form from submitting and refreshing the page.
-        event.preventDefault()
-        //     // Get data from the form.
-        const data = {
-            category: event.target.name.value
-        }
-        // Send the data to the server in JSON format.
-        const JSONdata = JSON.stringify(data);
-        // console.log(JSONdata);
-        // API endpoint where we send form data.
-        const endpoint = '/api/newsForm'
-        // Form the request for sending data to the server.
-        const options = {
-            // The method is POST because we are sending data.
-            method: 'POST',
-            // Tell the server we're sending JSON.
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            // Body of the request is the JSON data we created above.
-            body: JSONdata,
-        }
-            // Send the form data to our forms API on Vercel and get a response.
-            const response = await fetch(endpoint, options)
+    // const handleSubmit = async (event) => {
+    //     //     // Stop the form from submitting and refreshing the page.
+    //     event.preventDefault()
+    //     //     // Get data from the form.
+    //     const data = {
+    //         category: event.target.name.value
+    //     }
+    //     // Send the data to the server in JSON format.
+    //     const JSONdata = JSON.stringify(data);
+    //     // console.log(JSONdata);
+    //     // API endpoint where we send form data.
+    //     const endpoint = '/api/newsForm'
+    //     // Form the request for sending data to the server.
+    //     const options = {
+    //         // The method is POST because we are sending data.
+    //         method: 'POST',
+    //         // Tell the server we're sending JSON.
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         // Body of the request is the JSON data we created above.
+    //         body: JSONdata,
+    //     }
+    //     // Send the form data to our forms API on Vercel and get a response.
+    //     const response = await fetch(endpoint, options)
 
-            // Get the response data from server as JSON.
-            // If server returns the name submitted, that means the form works.
-            const result = await response.json()
-            // alert(`Your item: ${JSON.stringify(result.data)}`);
-            // console.log(`Result: ${result}`);
+    //     // Get the response data from server as JSON.
+    //     // If server returns the name submitted, that means the form works.
+    //     const result = await response.json()
+    //     // alert(`Your item: ${JSON.stringify(result.data)}`);
+    //     // console.log(`Result: ${result}`);
 
-            setNewsData([result]);
-    }
+    //     setNewsData([result]);
+    // }
 
     if (newsSwitchStatus) {
         return (
@@ -78,25 +79,28 @@ export default function NewsWidget() {
                                 </button>
                                 <div className="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
                                     <div className="navbar-nav">
-                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="business">
+                                        <button type="submit" onClick={() => setBtnValue([])} className="nav-link btn" name="home">
+                                            All
+                                        </button>
+                                        <button type="submit" onClick={() => setBtnValue("business")} className="nav-link btn" name="business">
                                             Business
                                         </button>
-                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="technology">
+                                        <button type="submit" onClick={() => setBtnValue("technology")} className="nav-link btn" name="technology">
                                             Technology
                                         </button>
-                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="sports">
+                                        <button type="submit" onClick={() => setBtnValue("sports")} className="nav-link btn" name="sports">
                                             Sports
                                         </button>
-                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="entertainment">
+                                        <button type="submit" onClick={() => setBtnValue("entertainment")} className="nav-link btn" name="entertainment">
                                             Entertainment
                                         </button>
-                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="general">
+                                        <button type="submit" onClick={() => setBtnValue("general")} className="nav-link btn" name="general">
                                             General
                                         </button>
-                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="health">
+                                        <button type="submit" onClick={() => setBtnValue("health")} className="nav-link btn" name="health">
                                             Health
                                         </button>
-                                        <button type="submit" onClick={handleSubmit} className="nav-link btn" name="science">
+                                        <button type="submit" onClick={() => setBtnValue("science")} className="nav-link btn" name="science">
                                             Science
                                         </button>
                                     </div>
@@ -109,6 +113,8 @@ export default function NewsWidget() {
                             newsSwitchStatus={newsSwitchStatus}
                             showMore={showMore}
                             setShowMore={setShowMore}
+                            btnValue={btnValue}
+                            setBtnValue={setBtnValue}
                         />
                         <div className="p-2">
                             {!showMore ? (
@@ -126,69 +132,75 @@ export default function NewsWidget() {
     }
 }
 
-function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, showMore }) {
+function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, showMore, setBtnValue, btnValue }) {
 
-    const renderNews = async (event) => {
-        //     // Stop the form from submitting and refreshing the page.
-        event.preventDefault()
-        //     // Get data from the form.
-        const data = {
-            category: event.target.name.value
+    const key = process.env.NEXT_PUBLIC_NEWS_API_KEY
+
+    async function fetchNews(btnValue) {
+        const categoryEndpoint = `https://newsapi.org/v2/top-headlines?country=us&category=${btnValue}&apiKey=${key}`
+        const topHeadlinesEndpoint = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${key}`
+
+        if (btnValue) {
+            try {
+                const response = await fetch(categoryEndpoint, {
+                    method: 'GET',
+                    // mode: 'cors',
+                    headers: {
+                        'Access-Control-Request-Method': 'GET',
+                        'Access-Control-Request-Headers': 'origin',
+                        'Origin': 'http://localhost:3000/',
+                    },
+                })
+                console.log(response);
+
+                const result = await response.json();
+
+                setNewsData([result]);
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+            try {
+                const response = await fetch(topHeadlinesEndpoint, {
+                    method: 'GET',
+                    // mode: 'cors',
+                    headers: {
+                        'Access-Control-Request-Method': 'GET',
+                        'Access-Control-Request-Headers': 'origin',
+                        'Origin': 'http://localhost:3000/',
+                    },
+                })
+                console.log(response);
+
+                const result = await response.json();
+
+                setNewsData([result]);
+            } catch (err) {
+                console.log(err);
+            }
         }
-        // Send the data to the server in JSON format.
-        const JSONdata = JSON.stringify(data);
-        // console.log(JSONdata);
-        // API endpoint where we send form data.
-        const endpoint = '/api/newsForm'
-        // Form the request for sending data to the server.
-        const options = {
-            // The method is POST because we are sending data.
-            method: 'POST',
-            // Tell the server we're sending JSON.
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            // Body of the request is the JSON data we created above.
-            body: JSONdata,
-        }
-            // Send the form data to our forms API on Vercel and get a response.
-            const response = await fetch(endpoint, options)
-
-            // Get the response data from server as JSON.
-            // If server returns the name submitted, that means the form works.
-            const result = await response.json()
-            // alert(`Your item: ${JSON.stringify(result.data)}`);
-            console.log(`Result: ${result}`);
-
-            setNewsData([result]);
     }
-    // const key = process.env.NEXT_PUBLIC_NEWS_API_KEY
-
-    // async function fetchNews() {
-    //     try {
-    //         const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${key}`, {
-    //             method: 'GET',
-    //             // mode: 'cors',
-    //             headers: {
-    //                 'Access-Control-Request-Method': 'GET',
-    //                 'Access-Control-Request-Headers': 'origin',
-    //                 'Origin': 'http://localhost:3000/',
-    //             },
-    //         })
-    //         console.log(response);
-
-    //         const result = await response.json();
-
-    //         setNewsData([result]);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
 
     useEffect(() => {
         fetchNews()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newsSwitchStatus])
+
+    useEffect(() => {
+        setBtnValue([])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [!newsSwitchStatus])
+
+    useEffect(() => {
+        fetchNews(btnValue)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [btnValue])
+
+    useEffect(() => {
+        setBtnValue([])
+        console.log(btnValue);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         setShowMore(false);
@@ -233,11 +245,16 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
     ))
 
     return (
-        !showMore ?
-            (
-                <div>{tenArticles}</div>
-            ) : (
-                <div>{allArticles}</div>
-            )
+        <>
+            <h2>{btnValue}</h2>
+            <div>
+                {!showMore ?
+                    (
+                        <div>{tenArticles}</div>
+                    ) : (
+                        <div>{allArticles}</div>
+                    )}
+            </div>
+        </>
     )
 }
