@@ -27,41 +27,6 @@ export default function NewsWidget() {
         console.log(newsData);
     }, [newsData])
 
-    // const handleSubmit = async (event) => {
-    //     //     // Stop the form from submitting and refreshing the page.
-    //     event.preventDefault()
-    //     //     // Get data from the form.
-    //     const data = {
-    //         category: event.target.name.value
-    //     }
-    //     // Send the data to the server in JSON format.
-    //     const JSONdata = JSON.stringify(data);
-    //     // console.log(JSONdata);
-    //     // API endpoint where we send form data.
-    //     const endpoint = '/api/newsForm'
-    //     // Form the request for sending data to the server.
-    //     const options = {
-    //         // The method is POST because we are sending data.
-    //         method: 'POST',
-    //         // Tell the server we're sending JSON.
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         // Body of the request is the JSON data we created above.
-    //         body: JSONdata,
-    //     }
-    //     // Send the form data to our forms API on Vercel and get a response.
-    //     const response = await fetch(endpoint, options)
-
-    //     // Get the response data from server as JSON.
-    //     // If server returns the name submitted, that means the form works.
-    //     const result = await response.json()
-    //     // alert(`Your item: ${JSON.stringify(result.data)}`);
-    //     // console.log(`Result: ${result}`);
-
-    //     setNewsData([result]);
-    // }
-
     if (newsSwitchStatus) {
         return (
             <div className="col-11 mx-auto">
@@ -71,7 +36,17 @@ export default function NewsWidget() {
                             <button style={{ position: 'absolute' }} className="btn-close btn-close-white close-button ms-auto" type="button" onClick={() => setNewsSwitchStatus(false)} aria-label="Close">
                             </button>
                         </div>
-                        <h1 className="card-header border border-secondary m-3 rounded">News</h1>
+                        <div className="row border border-secondary m-3 rounded">
+                            <div className="col">
+                                <h1 className="card-header">News</h1>
+                            </div>
+                            <div className="col-4 align-self-center">
+                                <NewsSearch
+                                    newsData={newsData}
+                                    setNewsData={setNewsData}
+                                />
+                            </div>
+                        </div>
                         <nav className="navbar navbar-expand-lg navbar-dark text-light">
                             <div className="container-fluid">
                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -130,6 +105,49 @@ export default function NewsWidget() {
             </div>
         )
     }
+}
+
+function NewsSearch({ newsData, setNewsData }) {
+    const handleSubmit = async (event) => {
+        // Stop the form from submitting and refreshing the page.
+        event.preventDefault()
+        // Get data from the form.
+        const data = {
+            newsQuery: event.target.news.value
+        }
+        // Send the data to the server in JSON format.
+        const JSONdata = JSON.stringify(data);
+        // console.log(JSONdata);
+        // API endpoint where we send form data.
+        const endpoint = '/api/newsForm'
+        // Form the request for sending data to the server.
+        const options = {
+            // The method is POST because we are sending data.
+            method: 'POST',
+            // Tell the server we're sending JSON.
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Body of the request is the JSON data we created above.
+            body: JSONdata,
+        }
+        // Send the form data to our forms API and get a response.
+        const response = await fetch(endpoint, options)
+        // Get the response data from server as JSON.
+        const result = await response.json()
+        console.log(result);
+
+        setNewsData([result]);
+    }
+
+    return (
+        <div className="text-light">
+            <form onSubmit={handleSubmit} className="input-group">
+                <input type="text" id="news" name="news" className="form-control" placeholder="Search News..." required />
+                <button className="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    )
 }
 
 function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, showMore, setBtnValue, btnValue }) {
@@ -202,6 +220,11 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    // useEffect(() => {
+    //     console.log(articleCount);
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
+
     useEffect(() => {
         setShowMore(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -209,6 +232,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
 
     const tenArticles = newsData.map(news => (
         <>
+            <p className="ms-3 text-muted">{news.totalResults} {btnValue} articles</p>
             {news.articles.map((article, i) =>
                 i < 5 ?
                     (<div className="text-light m-0" key={article.url}>
@@ -218,7 +242,6 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
                             <p className="card-text text-muted">{article.source.name}</p>
                             <p className="card-text">{article.description}</p>
                             <p className="card-text">{article.content}</p>
-                            {/* <button onClick={() => setShowMore(true)} className="btn btn-warning">Show More</button> */}
                             <hr />
                         </div>
                     </div>) : null)
@@ -228,6 +251,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
 
     const allArticles = newsData.map(news => (
         <>
+            <p className="text-muted">Total Results: {news.totalResults}</p>
             {news.articles.map((article) =>
             (<div className="text-light m-0" key={article.url}>
                 <div className="card-body">
@@ -236,7 +260,6 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
                     <p className="card-text text-muted">{article.source.name}</p>
                     <p className="card-text">{article.description}</p>
                     <p className="card-text">{article.content}</p>
-                    {/* <button onClick={() => setShowMore(false)} className="btn btn-warning">Hide</button> */}
                     <hr />
                 </div>
             </div>)
@@ -246,7 +269,6 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
 
     return (
         <>
-            <h2>{btnValue}</h2>
             <div>
                 {!showMore ?
                     (
