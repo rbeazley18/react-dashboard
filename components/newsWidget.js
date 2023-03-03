@@ -36,16 +36,20 @@ export default function NewsWidget() {
                             <button style={{ position: 'absolute' }} className="btn-close btn-close-white close-button ms-auto" type="button" onClick={() => setNewsSwitchStatus(false)} aria-label="Close">
                             </button>
                         </div>
-                        <div className="row border border-secondary m-3 rounded">
-                            <div className="col">
-                                <h1 className="card-header">News</h1>
+                        <div className="border border-secondary m-3 mt-5 p-2 rounded">
+                            <div className="row justify-content-between">
+                                <div className="col-2 align-self-center">
+                                    <h1 className="">News</h1>
+                                </div>
+                                <div className="col-3 align-self-center">
+                                    <NewsSearch
+                                        newsData={newsData}
+                                        setNewsData={setNewsData}
+                                    />
+                                </div>
                             </div>
-                            <div className="col-4 align-self-center">
-                                <NewsSearch
-                                    newsData={newsData}
-                                    setNewsData={setNewsData}
-                                />
-                            </div>
+                            {/* <div className="col-4 me-auto align-self-center">
+                            </div> */}
                         </div>
                         <nav className="navbar navbar-expand-lg navbar-dark text-light">
                             <div className="container-fluid">
@@ -54,8 +58,8 @@ export default function NewsWidget() {
                                 </button>
                                 <div className="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
                                     <div className="navbar-nav">
-                                        <button type="submit" onClick={() => setBtnValue([])} className="nav-link btn" name="home">
-                                            All
+                                        <button type="submit" onClick={() => setBtnValue("general")} className="nav-link btn" name="general">
+                                            General
                                         </button>
                                         <button type="submit" onClick={() => setBtnValue("business")} className="nav-link btn" name="business">
                                             Business
@@ -69,9 +73,7 @@ export default function NewsWidget() {
                                         <button type="submit" onClick={() => setBtnValue("entertainment")} className="nav-link btn" name="entertainment">
                                             Entertainment
                                         </button>
-                                        <button type="submit" onClick={() => setBtnValue("general")} className="nav-link btn" name="general">
-                                            General
-                                        </button>
+
                                         <button type="submit" onClick={() => setBtnValue("health")} className="nav-link btn" name="health">
                                             Health
                                         </button>
@@ -220,10 +222,10 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    // useEffect(() => {
-    //     console.log(articleCount);
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
+    useEffect(() => {
+        setShowMore(false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [newsData])
 
     useEffect(() => {
         setShowMore(false);
@@ -232,7 +234,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
 
     const tenArticles = newsData.map(news => (
         <>
-            <p className="ms-3 text-muted">{news.totalResults} {btnValue} articles</p>
+            <p className="ms-3 text-muted">Total Results: {news.totalResults}</p>
             {news.articles.map((article, i) =>
                 i < 5 ?
                     (<div className="text-light m-0" key={article.url}>
@@ -241,7 +243,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
                             <p className="card-text m-0">{article.author}</p>
                             <p className="card-text text-muted">{article.source.name}</p>
                             <p className="card-text">{article.description}</p>
-                            <p className="card-text">{article.content}</p>
+                            {/* <p className="card-text">{article.content}</p> */}
                             <hr />
                         </div>
                     </div>) : null)
@@ -251,7 +253,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
 
     const allArticles = newsData.map(news => (
         <>
-            <p className="text-muted">Total Results: {news.totalResults}</p>
+            <p className="text-muted ms-3">Total Results: {news.totalResults}</p>
             {news.articles.map((article) =>
             (<div className="text-light m-0" key={article.url}>
                 <div className="card-body">
@@ -259,7 +261,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
                     <p className="card-text m-0">{article.author}</p>
                     <p className="card-text text-muted">{article.source.name}</p>
                     <p className="card-text">{article.description}</p>
-                    <p className="card-text">{article.content}</p>
+                    {/* <p className="card-text">{article.content}</p> */}
                     <hr />
                 </div>
             </div>)
