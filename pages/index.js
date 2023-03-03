@@ -19,7 +19,7 @@ export default function Home() {
         <>
             <Head>
                 <title>Home</title>
-                <meta name="description" content="Your shopping items." />
+                <meta name="description" content="Your widgets." />
             </Head>
             <main>
                 <div className="widget-components">

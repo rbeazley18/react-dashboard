@@ -53,7 +53,7 @@ export default function StockWidget() {
     }
 }
 
-function StockSearch({ stockData, setStockData }) {
+function StockSearch({setStockData }) {
     const handleSubmit = async (event) => {
         // Stop the form from submitting and refreshing the page.
         event.preventDefault()
