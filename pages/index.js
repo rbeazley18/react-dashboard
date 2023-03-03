@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { useState, useEffect, createContext } from 'react';
 import ViewWidgetsButton from '../components/widgetMenu';
 import Widgets from '../components/allWidgets';
