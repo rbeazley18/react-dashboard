@@ -235,7 +235,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
     const tenArticles = newsData.map(news => (
         <>
             <p className="ms-3 text-muted">Total Results: {news.totalResults}</p>
-            {news.articles.map((article, i) =>
+            {news && news.articles.map((article, i) =>
                 i < 5 ?
                     (<div className="text-light m-0" key={article.url}>
                         <div className="card-body">
@@ -254,7 +254,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
     const allArticles = newsData.map(news => (
         <>
             <p className="text-muted ms-3">Total Results: {news.totalResults}</p>
-            {news.articles.map((article) =>
+            {news && news.articles.map((article) =>
             (<div className="text-light m-0" key={article.url}>
                 <div className="card-body">
                     <h2 style={{ fontSize: '24px' }}><a className="text-decoration-none link-success" data-bs-toggle="tooltip" title={article.url} href={article.url}>{article.title}</a></h2>

@@ -8,7 +8,7 @@ export default function Widgets() {
     return (
         <div className="all-widgets container-fluid">
             <QuoteWidget />
-            <div className="row border mx-auto justify-content-evenly m-2 g-3" style={{maxWidth: 1200}}>
+            <div className="row mx-auto justify-content-evenly m-2 g-3" style={{maxWidth: 1200}}>
                     <WeatherWidget />
                     <StockWidget />
             </div>
