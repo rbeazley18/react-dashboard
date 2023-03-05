@@ -73,6 +73,7 @@ function StockSearch({setStockData }) {
             // Tell the server we're sending JSON.
             headers: {
                 'Content-Type': 'application/json',
+                'Origin': 'https://react-dashboard-ivory-five.vercel.app/',
             },
             // Body of the request is the JSON data we created above.
             body: JSONdata,

@@ -16,8 +16,8 @@ export default function Navbar() {
                 <div className="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
                     <div className="navbar-nav fw-bold">
                         <Link className="nav-link active" aria-current="page" href={'/'}>Home</Link>
-                        <a className="nav-link" href="#">Pricing</a>
-                        <a className="nav-link disabled">Disabled</a>
+                        {/* <a className="nav-link" href="#">Pricing</a>
+                        <a className="nav-link disabled">Disabled</a> */}
                     </div>
                 </div>
             </div>

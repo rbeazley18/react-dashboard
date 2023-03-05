@@ -171,7 +171,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
                         'Origin': 'http://localhost:3000/',
                     },
                 })
-                console.log(response);
+                // console.log(response);
 
                 const result = await response.json();
 
@@ -190,7 +190,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
                         'Origin': 'http://localhost:3000/',
                     },
                 })
-                console.log(response);
+                // console.log(response);
 
                 const result = await response.json();
 
