@@ -187,7 +187,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
                     headers: {
                         'Access-Control-Request-Method': 'GET',
                         'Access-Control-Request-Headers': 'origin',
-                        'Origin': 'http://localhost:3000/',
+                        "Access-Control-Allow-Origin": "*",
                     },
                 })
                 // console.log(response);
