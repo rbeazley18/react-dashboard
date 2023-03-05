@@ -83,7 +83,7 @@ function WeatherSearch({ setWeatherData }) {
                 'Access-Control-Request-Headers': 'origin',
                 'Content-Type': 'application/json',
                 "Access-Control-Allow-Origin": "*",
-                'Origin': 'https://react-dashboard-ivory-five.vercel.app/',
+                // 'Origin': 'https://react-dashboard-ivory-five.vercel.app/',
             },
             // Body of the request is the JSON data we created above.
             body: JSONdata,
