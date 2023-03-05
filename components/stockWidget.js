@@ -53,7 +53,7 @@ export default function StockWidget() {
     }
 }
 
-function StockSearch({setStockData }) {
+function StockSearch({ setStockData }) {
     const handleSubmit = async (event) => {
         // Stop the form from submitting and refreshing the page.
         event.preventDefault()
@@ -72,6 +72,8 @@ function StockSearch({setStockData }) {
             method: 'POST',
             // Tell the server we're sending JSON.
             headers: {
+                'Access-Control-Request-Method': 'GET',
+                'Access-Control-Request-Headers': 'origin',
                 'Content-Type': 'application/json',
                 'Origin': 'https://react-dashboard-ivory-five.vercel.app/',
             },

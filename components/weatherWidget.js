@@ -79,6 +79,8 @@ function WeatherSearch({ setWeatherData }) {
             method: 'POST',
             // Tell the server we're sending JSON.
             headers: {
+                'Access-Control-Request-Method': 'GET',
+                'Access-Control-Request-Headers': 'origin',
                 'Content-Type': 'application/json',
                 'Origin': 'https://react-dashboard-ivory-five.vercel.app/',
             },
