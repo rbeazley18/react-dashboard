@@ -48,8 +48,6 @@ export default function NewsWidget() {
                                     />
                                 </div>
                             </div>
-                            {/* <div className="col-4 me-auto align-self-center">
-                            </div> */}
                         </div>
                         <nav className="navbar navbar-expand-lg navbar-dark text-light">
                             <div className="container-fluid">
