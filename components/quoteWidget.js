@@ -12,10 +12,10 @@ export default function QuoteWidget() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         , [])
 
-    useEffect(() => {
-        console.log(quoteSwitchStatus);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    // useEffect(() => {
+    //     console.log(quoteSwitchStatus);
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
 
     useEffect(() => {
         console.log(quoteData);
@@ -63,16 +63,16 @@ function QuoteDisplay({ quoteData, setQuoteData }) {
         try {
             const response = await fetch('https://favqs.com/api/qotd', {
                 method: 'GET',
-                mode: 'cors',
+                // mode: 'cors',
                 headers: {
                     'Access-Control-Request-Method': 'GET',
                     'Access-Control-Request-Headers': 'origin',
-                    'Origin': 'http://localhost:3000/',
+                    "Access-Control-Allow-Origin": "*",
                 },
             })
-            console.log(response);
-
             const result = await response.json();
+
+            console.log(result);
 
             setQuoteData(result);
         } catch (err) {
@@ -83,7 +83,7 @@ function QuoteDisplay({ quoteData, setQuoteData }) {
     useEffect(() => {
         fetchQuote()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [quoteSwitchStatus])
 
 
 
