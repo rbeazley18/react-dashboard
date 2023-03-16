@@ -156,7 +156,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
 
     async function fetchNews(btnValue) {
         const categoryEndpoint = `https://newsapi.org/v2/top-headlines?country=us&category=${btnValue}&apiKey=${key}`
-        const topHeadlinesEndpoint = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${key}`
+        const topHeadlinesEndpoint = `https://newsdata.io/api/1/news?apikey=${key}&language=en`
 
         if (btnValue) {
             try {
@@ -185,7 +185,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
                     headers: {
                         'Access-Control-Request-Method': 'GET',
                         'Access-Control-Request-Headers': 'origin',
-                        "Access-Control-Allow-Origin": "*",
+                        'Access-Control-Allow-Origin': '*',
                     },
                 })
                 // console.log(response);
@@ -233,7 +233,7 @@ function NewsDisplay({ newsData, setNewsData, newsSwitchStatus, setShowMore, sho
     const tenArticles = newsData.map(news => (
         <>
             <p className="ms-3 text-muted">Total Results: {news.totalResults}</p>
-            {news && news.articles.map((article, i) =>
+            {news && news.results.map((article, i) =>
                 i < 5 ?
                     (<div className="text-light m-0" key={article.url}>
                         <div className="card-body">
