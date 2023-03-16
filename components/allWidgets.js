@@ -7,12 +7,12 @@ import NewsWidget from "./newsWidget";
 export default function Widgets() {
     return (
         <div className="all-widgets container-fluid">
-            <QuoteWidget />
+            {/* <QuoteWidget /> */}
             <div className="row mx-auto justify-content-evenly m-2 g-3" style={{maxWidth: 1200}}>
                     <WeatherWidget />
                     <StockWidget />
             </div>
-            <NewsWidget />
+            {/* <NewsWidget /> */}
         </div>
     )
 }
